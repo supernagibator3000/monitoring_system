@@ -20,9 +20,5 @@ public class Checkpoint{
     private Event event;
 
     @OneToMany(mappedBy = "checkpoint",fetch = FetchType.LAZY)
-    @JoinTable(name="checkpoints_scores",
-            joinColumns = {@JoinColumn(name="checkpoint_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="score_id", referencedColumnName="id")}
-    )
     private List<Score> scoreList;
 }

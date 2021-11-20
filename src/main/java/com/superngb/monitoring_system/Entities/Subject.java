@@ -21,10 +21,6 @@ public class Subject {
     private String name;
 
     @OneToMany(mappedBy = "subject")
-    @JoinTable(name="subjects_events",
-            joinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="event_id", referencedColumnName="id")}
-    )
     private List<Event> events;
 
     @Transient

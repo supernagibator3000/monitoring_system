@@ -18,6 +18,9 @@ public class Event {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    @JoinTable(name="subjects_events",
+            joinColumns = {@JoinColumn(name="event_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")}
+    )
     private Subject subject;
 }

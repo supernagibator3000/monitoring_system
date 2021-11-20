@@ -20,9 +20,5 @@ public class Lesson {
     private Event event;
 
     @OneToMany(mappedBy = "lesson",fetch = FetchType.LAZY)
-    @JoinTable(name="lessons_attendance",
-            joinColumns = {@JoinColumn(name="lesson_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="attendance_id", referencedColumnName="id")}
-    )
     private List<Attendance> attendanceList;
 }

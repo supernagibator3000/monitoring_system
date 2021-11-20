@@ -26,7 +26,10 @@ public class Student{
     private String studentCardId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    @JoinTable(name="groups_students",
+            joinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="group_id", referencedColumnName="id")}
+    )
     private Group group;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -37,16 +40,8 @@ public class Student{
     private List<Subject> subjects;
 
     @OneToMany(mappedBy = "student")
-    @JoinTable(name="students_scores",
-            joinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="score_id", referencedColumnName="id")}
-    )
     private List<Score> scores;
 
     @OneToMany(mappedBy = "student")
-    @JoinTable(name="students_attendance",
-            joinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="attendance_id", referencedColumnName="id")}
-    )
     private List<Attendance> attendance;
 }

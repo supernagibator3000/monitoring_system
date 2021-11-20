@@ -18,11 +18,7 @@ public class Group {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="groups_students",
-            joinColumns = {@JoinColumn(name="group_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")}
-    )
+    @OneToMany(mappedBy = "group")
     private List<Student> students;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -17,7 +17,10 @@ public class Score {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinTable(name="students_scores",
+            joinColumns = {@JoinColumn(name="score_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")}
+    )
     private Student student;
 
     @Enumerated(EnumType.STRING)
@@ -25,6 +28,9 @@ public class Score {
     private ScoreEnum scoreMark;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "checkpoint_id", referencedColumnName = "id")
+    @JoinTable(name="checkpoints_scores",
+            joinColumns = {@JoinColumn(name="score_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="checkpoint_id", referencedColumnName="id")}
+    )
     private Checkpoint checkpoint;
 }

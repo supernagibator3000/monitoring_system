@@ -17,7 +17,10 @@ public class Attendance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinTable(name="students_attendance",
+            joinColumns = {@JoinColumn(name="attendance_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")}
+    )
     private Student student;
 
     @Enumerated(EnumType.STRING)
@@ -25,6 +28,9 @@ public class Attendance {
     private AttendanceEnum attendanceMark;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    @JoinTable(name="lessons_attendance",
+            joinColumns = {@JoinColumn(name="attendance_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="lesson_id", referencedColumnName="id")}
+    )
     private Lesson lesson;
 }
