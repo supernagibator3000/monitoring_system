@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Admin Personalities Page</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
+    <form v-on:submit.prevent="findPersonalities">
+        <input type="number" v-model="id" name="id" placeholder="ID"/>
+        <input type="text" v-model="second_name" name="second_name" placeholder="Фамилия"/>
+        <input type="text" v-model="first_name" name="first_name" placeholder="Имя"/>
+        <input type="text" v-model="middle_name" name="middle_name" placeholder="Отчество"/>
+        <input type="submit" class="btn btn-primary findPersonalities" value="Найти">
+    </form>
+
+    <h3 v-if="deleted != ''">Человек {{deleted}} успешно удален</h3>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Отчество</th>
+        <th scope="col">Email</th>
+        <th scope="col" colspan="2">Actions</th>
+        </thead>
+        <tbody>
+        <tr v-for="personality in this.personalities">
+            <td>{{personality.id}}</td>
+            <td>{{personality.secondName}}</td>
+            <td >{{personality.firstName}}</td>
+            <td >{{personality.middleName}}</td>
+            <td >{{personality.email}}</td>
+            <td>
+                <form v-on:submit.prevent="showPersonality(personality)">
+                    <input type="submit" class="btn btn-primary showPersonality" value="Перейти">
+                </form>
+            </td>
+            <td>
+                <form v-on:submit.prevent="deletePersonality(personality)">
+                    <input type="submit" class="btn btn-danger deletePersonality" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            id: null,
+            first_name:'',
+            second_name:'',
+            middle_name:'',
+            email:'',
+            deleted:'',
+            personalities: []
+        },
+        async mounted(){
+            await this.getPersonalities()
+        },
+        methods: {
+            getPersonalities: function (event){
+                axios.get('/admin/allPersonalities')
+                    .then(response=>{
+                        this.personalities = response.data
+                    })
+            },
+            findPersonalities: function (event) {
+                axios.post('/admin/filterPersonalities',{
+                    "id": this.id,
+                    "firstName": this.first_name,
+                    "secondName": this.second_name,
+                    "middleName": this.middle_name
+                })
+                    .then(response=>{
+                        this.personalities = response.data
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showPersonality: function (personality) {
+                location.href = `/admin/personalities/${personality.id}`
+            },
+            deletePersonality: function (personality) {
+                axios.delete(`/admin/deletePersonality/${personality.id}`)
+                    .then(response=>{
+                        this.deleted = response.data
+                        this.getPersonalities()
+                    })
+            }
+        }
+    })
+</script>
+</body>
+</html>

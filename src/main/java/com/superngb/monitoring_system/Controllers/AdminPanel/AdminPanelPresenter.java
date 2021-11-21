@@ -1,5 +1,6 @@
 package com.superngb.monitoring_system.Controllers.AdminPanel;
 
+import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.UserDtoModel;
 import com.superngb.monitoring_system.UseCases.AdminPanel.AdminPanelOutputBoundary;
 
@@ -30,5 +31,30 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     @Override
     public List<UserDtoModel> convertUsers(List<UserDtoModel> users) {
         return users;
+    }
+
+    @Override
+    public boolean prepareSuccessEditPersonalityView(PersonalityDtoModel personalityDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditPersonalityView(PersonalityDtoModel personalityDtoModel) {
+        return false;
+    }
+
+    @Override
+    public PersonalityDtoModel prepareDeletedPersonalityView(PersonalityDtoModel personalityDtoModel) {
+        return personalityDtoModel;
+    }
+
+    @Override
+    public PersonalityDtoModel prepareFindedPersonalityView(PersonalityDtoModel personalityDtoModel) {
+        return personalityDtoModel;
+    }
+
+    @Override
+    public List<PersonalityDtoModel> convertPersonalities(List<PersonalityDtoModel> personalityDtoModels) {
+        return personalityDtoModels;
     }
 }

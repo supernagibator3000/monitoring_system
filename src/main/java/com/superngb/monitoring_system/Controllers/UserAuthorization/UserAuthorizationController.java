@@ -16,7 +16,7 @@ public class UserAuthorizationController {
         this.userAuthorizationInputBoundary = userAuthorizationInputBoundary;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/addUser")
     public RegistrationResponseModel addUser(@RequestBody RegistrationRequest registrationRequest) {
         return userAuthorizationInputBoundary.save(registrationRequest);
     }
