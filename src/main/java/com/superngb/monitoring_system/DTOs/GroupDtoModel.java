@@ -34,7 +34,7 @@ public class GroupDtoModel implements Serializable {
         return new GroupDtoModel(group.getId(), group.getName(), students, subjects);
     }
 
-    static public List<GroupDtoModel> listGroupMapper(List<Group> groups) {
+    static public List<GroupDtoModel> listGroupsMapper(List<Group> groups) {
         List<GroupDtoModel> groupDtoModels = new ArrayList<>();
         for (Group group : groups)
             groupDtoModels.add(groupMapper(group));

@@ -23,7 +23,7 @@ public class ScoreDtoModel implements Serializable {
         return new ScoreDtoModel(score.getId(), score.getStudent().getId(), score.getScoreMark().getDescription(), score.getCheckpoint().getId());
     }
 
-    static public List<ScoreDtoModel> listScoreMapper(List<Score> scoreList){
+    static public List<ScoreDtoModel> listScoresMapper(List<Score> scoreList){
         List<ScoreDtoModel> scoreDtoModels = new ArrayList<>();
         for (Score score: scoreList)
             scoreDtoModels.add(scoreMapper(score));

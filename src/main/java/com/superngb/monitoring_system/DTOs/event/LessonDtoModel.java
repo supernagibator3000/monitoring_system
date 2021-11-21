@@ -28,7 +28,7 @@ public class LessonDtoModel implements Serializable {
         return new LessonDtoModel(lesson.getId(), lesson.getEvent().getId(), attendanceList);
     }
 
-    static  public List<LessonDtoModel> listLessonMapper(List<Lesson> lessons){
+    static  public List<LessonDtoModel> listLessonsMapper(List<Lesson> lessons){
         List<LessonDtoModel> lessonDtoModels = new ArrayList<>();
         for (Lesson lesson: lessons)
             lessonDtoModels.add(lessonMapper(lesson));

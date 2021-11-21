@@ -28,7 +28,7 @@ public class CheckpointDtoModel implements Serializable {
         return new CheckpointDtoModel(checkpoint.getId(), checkpoint.getEvent().getId(), scoreList);
     }
 
-    static public List<CheckpointDtoModel> listCheckpointMapper(List<Checkpoint> checkpoints) {
+    static public List<CheckpointDtoModel> listCheckpointsMapper(List<Checkpoint> checkpoints) {
         List<CheckpointDtoModel> checkpointDtoModels = new ArrayList<>();
         for (Checkpoint checkpoint : checkpoints)
             checkpointDtoModels.add(checkpointMapper(checkpoint));

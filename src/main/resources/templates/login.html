@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<!--    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">-->
 </head>
 <body>
     <div sec:authorize="isAuthenticated()">
@@ -16,7 +16,7 @@
             <h2>Вход в систему</h2>
             <div>
                 <label>
-                    <input name="username" type="text" placeholder="Логиин" autofocus="true"/>
+                    <input name="username" type="text" placeholder="Логин" autofocus="true"/>
                 </label>
                 <label>
                     <input name="password" type="password" placeholder="Пароль"/>

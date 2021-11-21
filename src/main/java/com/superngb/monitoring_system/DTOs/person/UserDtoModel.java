@@ -29,7 +29,7 @@ public class UserDtoModel implements Serializable {
         return new UserDtoModel(user.getId(), user.getPersonality().getId(), user.getUsername(), roles);
     }
 
-    static public List<UserDtoModel> listUserMapper(List<User> users){
+    static public List<UserDtoModel> listUsersMapper(List<User> users){
         List<UserDtoModel> userDtoModels = new ArrayList<>();
         for (User user: users)
             userDtoModels.add(userMapper(user));

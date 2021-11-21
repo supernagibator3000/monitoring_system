@@ -46,7 +46,7 @@ public class SubjectDtoModel implements Serializable {
         return new SubjectDtoModel(subject.getId(), subject.getName(), events, groups, students, teachers);
     }
 
-    static public List<SubjectDtoModel> listSubjectMapper(List<Subject> subjects) {
+    static public List<SubjectDtoModel> listSubjectsMapper(List<Subject> subjects) {
         List<SubjectDtoModel> subjectDtoModels = new ArrayList<>();
         for (Subject subject : subjects)
             subjectDtoModels.add(subjectMapper(subject));

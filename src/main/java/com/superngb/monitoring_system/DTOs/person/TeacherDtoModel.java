@@ -28,7 +28,7 @@ public class TeacherDtoModel implements Serializable {
         return new TeacherDtoModel(teacher.getId(), teacher.getPersonality().getId(), subjects);
     }
 
-    static public List<TeacherDtoModel> listTeacherMapper(List<Teacher> teachers){
+    static public List<TeacherDtoModel> listTeachersMapper(List<Teacher> teachers){
         List<TeacherDtoModel> teacherDtoModels = new ArrayList<>();
         for (Teacher teacher: teachers)
             teacherDtoModels.add(teacherMapper(teacher));

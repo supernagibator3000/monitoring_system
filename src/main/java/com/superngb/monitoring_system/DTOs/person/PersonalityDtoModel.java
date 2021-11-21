@@ -24,7 +24,7 @@ public class PersonalityDtoModel implements Serializable {
         return new PersonalityDtoModel(personality.getId(), personality.getFirstName(), personality.getSecondName(), personality.getMiddleName(), personality.getEmail());
     }
 
-    static List<PersonalityDtoModel> listPersonalityMapper(List<Personality> personalities){
+    static List<PersonalityDtoModel> listPersonalitiesMapper(List<Personality> personalities){
         List<PersonalityDtoModel> personalityDtoModels = new ArrayList<>();
         for (Personality personality: personalities)
             personalityDtoModels.add(personalityMapper(personality));

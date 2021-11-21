@@ -22,7 +22,7 @@ public class EventDtoModel implements Serializable {
         return new EventDtoModel(event.getId(), event.getName(), event.getSubject().getId());
     }
 
-    static  public List<EventDtoModel> listEventMapper(List<Event> events){
+    static  public List<EventDtoModel> listEventsMapper(List<Event> events){
         List<EventDtoModel> eventDtoModels = new ArrayList<>();
         for (Event event: events)
             eventDtoModels.add(eventMapper(event));
