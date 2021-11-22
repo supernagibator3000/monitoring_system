@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Admin Personality Page</title>
+</head>
+<body>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
+
+<!--    <h5 v-if="addStudentStatusResponse != null">{{addStudentStatus}}</h5>-->
+<!--    <form v-if="student == null" v-on:submit.prevent="addStudentToGroup">-->
+<!--        <input type="text" v-model="student_card_id" name="student_card_id" placeholder="Номер студенческого билета"/>-->
+<!--        <input type="submit" class="btn btn-primary addStudentToGroup" value="Добавить в группу">-->
+<!--    </form>-->
+
+    <h5 v-if="editGroupStatusResponse != null">{{editGroupStatus}}</h5>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Имя группы</th>
+        <th scope="col"></th>
+        </thead>
+        <tr>
+            <td>{{group.id}}</td>
+            <td>
+                <label>
+                    <input type="text" v-model="name" name="name" :placeholder="group.name" />
+                </label>
+            </td>
+            <td>
+                <form v-on:submit.prevent="editGroup">
+                    <input type="submit" class="btn btn-warning editGroup" value="Редактировать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h5 v-if="removeStudentStatusResponse != null">{{removeStudentStatus}}</h5>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Номер студенческого билета</th>
+<!--        <th scope="col">Фамилия</th>-->
+<!--        <th scope="col">Имя</th>-->
+<!--        <th scope="col">Отчество</th>-->
+<!--        <th scope="col">Email</th>-->
+<!--        <th scope="col"></th>-->
+        </thead>
+        <tr v-for="student in this.students">
+            <td>{{student.id}}</td>
+            <td>{{student.studentCardId}}</td>
+<!--            <td>-->
+<!--                <form v-on:submit.prevent="removeStudentFromGroup(student)">-->
+<!--                    <input type="submit" class="btn btn-warning removeStudentFromGroup" value="Убрать из группы"/>-->
+<!--                </form>-->
+<!--            </td>-->
+        </tr>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            addStudentStatus:'',
+            addStudentStatusResponse: null,
+
+            removeStudentStatus:'',
+            removeStudentStatusResponse: null,
+
+            editGroupStatus:'',
+            editGroupStatusResponse: null,
+
+            personality: null,
+            id: window.location.href.split("/").slice(-1)[0],
+            first_name:'',
+            second_name:'',
+            middle_name:'',
+            email:'',
+
+            students: [],
+            student_card_id: "",
+
+            group: null,
+            name:'',
+        },
+        async mounted(){
+            await this.getGroup()
+        },
+        methods: {
+            addStudentToGroup: function () {
+                axios.put(`/admin/group/${this.id}`,{
+                    "student_card_id": this.studentCardId
+                })
+                    .then(response=>{
+                        this.addStudentStatusResponse = response.data
+                        this.addStudentStatus = this.addStudentStatusResponse? 'Студент успешно добавлен':'Не удалось добавить студента'
+                        // this.getGroup()
+                    })
+            },
+            removeStudentFromGroup: function (student) {
+                axios.put(`/admin/student/${student.id}`,{
+                    "group": "БЕЗ_ГРУППЫ"
+                })
+                    .then(response=>{
+                        this.removeStudentStatusResponse = response.data
+                        this.removeStudentStatus = this.removeStudentStatusResponse? 'Студент успешно убран':'Не удалось убрать студента'
+                        // this.getGroup()
+                    })
+            },
+            getPersonality: function (student){
+                axios.get(`/admin/personality/${student.personality}`)
+                    .then(response=>{
+                        this.personality = response.data
+                        console.log(this.personality)
+                    })
+            },
+            getStudents: function (event){
+                axios.get(`/admin/group/${this.id}/students`)
+                    .then(response=>{
+                        this.students = response.data
+                        console.log(this.students)
+
+                    })
+            },
+            getGroup: function (event){
+                axios.get(`/admin/group/${this.id}`)
+                    .then(response=>{
+                        this.group = response.data
+                        console.log(this.group)
+                        this.getStudents()
+                    })
+            },
+            editGroup: function (event) {
+                axios.put(`/admin/group/${this.id}`,{
+                    "name": this.name
+                })
+                    .then(response=>{
+                        this.editGroupStatusResponse = response.data
+                        this.editGroupStatus = this.editGroupStatusResponse? 'Данные группы успешно изменены':'Не удалось изменить данные группы'
+                        // this.getGroup()
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            }
+        }
+    })
+</script>
+</body>
+</html>

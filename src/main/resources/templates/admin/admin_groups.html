@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <th:block th:include="general.html :: headerfiles"></th:block>
-    <title>Admin Personalities Page</title>
+    <title>Admin Groups Page</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -11,50 +11,33 @@
 </nav>
 <div id="app">
 
-    <h5 v-if="editStatusResponse != null">{{editStatus}}</h5>
-    <form v-on:submit.prevent="addPersonality">
-        <input type="text" v-model="newSecondName" name="second_name" placeholder="Фамилия"/>
-        <input type="text" v-model="newFirstName" name="first_name" placeholder="Имя"/>
-        <input type="text" v-model="newMiddleName" name="middle_name" placeholder="Отчество"/>
-        <input type="email" v-model="newEmail" name="email" placeholder="Email"/>
-        <input type="submit" class="btn btn-primary addPersonality" value="Создать">
+    <h5 v-if="postStatusResponse != null">{{postStatus}}</h5>
+    <form v-on:submit.prevent="addGroup">
+        <input type="text" v-model="post_name" name="name" placeholder="Имя группы"/>
+        <input type="submit" class="btn btn-primary addGroup" value="Создать">
     </form>
 
-    <form v-on:submit.prevent="findPersonalities">
+    <form v-on:submit.prevent="findGroups">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
-        <input type="text" v-model="second_name" name="second_name" placeholder="Фамилия"/>
-        <input type="text" v-model="first_name" name="first_name" placeholder="Имя"/>
-        <input type="text" v-model="middle_name" name="middle_name" placeholder="Отчество"/>
-        <input type="submit" class="btn btn-primary findPersonalities" value="Найти">
+        <input type="text" v-model="name" name="name" placeholder="Имя группы"/>
+        <input type="submit" class="btn btn-primary findGroups" value="Найти">
     </form>
 
-    <!--    <h3 v-if="deleted != ''">Человек {{deleted}} успешно удален</h3>-->
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
-        <th scope="col">Фамилия</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Отчество</th>
-        <th scope="col">Email</th>
+        <th scope="col">Имя группы</th>
         <th scope="col"></th>
         </thead>
         <tbody>
-        <tr v-for="personality in this.personalities">
-            <td>{{personality.id}}</td>
-            <td>{{personality.secondName}}</td>
-            <td >{{personality.firstName}}</td>
-            <td >{{personality.middleName}}</td>
-            <td >{{personality.email}}</td>
+        <tr v-for="group in this.groups">
+            <td>{{group.id}}</td>
+            <td>{{group.name}}</td>
             <td>
-                <form v-on:submit.prevent="showPersonality(personality)">
-                    <input type="submit" class="btn btn-primary showPersonality" value="Подробнее">
+                <form v-on:submit.prevent="showGroup(group)">
+                    <input type="submit" class="btn btn-primary showGroup" value="Подробнее">
                 </form>
             </td>
-            <!--            <td>-->
-            <!--                <form v-on:submit.prevent="deletePersonality(personality)">-->
-            <!--                    <input type="submit" class="btn btn-danger deletePersonality" value="Удалить"/>-->
-            <!--                </form>-->
-            <!--            </td>-->
         </tr>
         </tbody>
     </table>
@@ -65,69 +48,51 @@
         el: '#app',
         data: {
             id: null,
-            first_name:'',
-            second_name:'',
-            middle_name:'',
-            email:'',
+            post_name:'',
+            name:'',
             deleted:'',
-            personalities: [],
-
-            newFirstName:'',
-            newSecondName:'',
-            newMiddleName:'',
-            newEmail:'',
+            groups: [],
 
             postStatus:'',
             postStatusResponse: null
         },
         async mounted(){
-            await this.getPersonalities()
+            await this.getGroups()
         },
         methods: {
-            addPersonality: function (){
-                axios.post('/admin/addPersonality',{
-                    "firstName": this.newFirstName,
-                    "secondName": this.newSecondName,
-                    "middleName": this.newMiddleName,
-                    "email": this.newEmail
+            addGroup: function (){
+                axios.post('/admin/addGroup',{
+                    "name": this.post_name
                 })
                     .then(response=>{
                         this.postStatusResponse = response.data
-                        this.postStatus = this.postStatusResponse? 'Запись успешно добавлена':'Не удалось добавить запись'
-                        this.getPersonalities()
+                        this.postStatus = this.postStatusResponse? 'Группа успешно добавлена':'Не удалось добавить группу'
+                        // this.getGroups()
                     })
             },
-            getPersonalities: function (event){
-                axios.get('/admin/allPersonalities')
+            getGroups: function (event){
+                axios.get('/admin/allGroups')
                     .then(response=>{
-                        this.personalities = response.data
-                        console.log(this.personalities)
+                        this.groups = response.data
+                        console.log(this.groups)
                     })
             },
-            findPersonalities: function (event) {
-                axios.post('/admin/filterPersonalities',{
+            findGroups: function (event) {
+                axios.post('/admin/filterGroups',{
                     "id": this.id,
-                    "firstName": this.first_name,
-                    "secondName": this.second_name,
-                    "middleName": this.middle_name
+                    "name": this.name
                 })
                     .then(response=>{
-                        this.personalities = response.data
+                        this.groups = response.data
+                        console.log(this.groups)
                     })
             },
             nullCheck: function (cat){
                 if (cat === null || cat ===false) return ""
                 else return cat
             },
-            showPersonality: function (personality) {
-                location.href = `/admin/personalities/${personality.id}`
-            },
-            deletePersonality: function (personality) {
-                axios.delete(`/admin/deletePersonality/${personality.id}`)
-                    .then(response=>{
-                        this.deleted = response.data
-                        this.getPersonalities()
-                    })
+            showGroup: function (group) {
+                location.href = `/admin/groups/${group.id}`
             }
         }
     })

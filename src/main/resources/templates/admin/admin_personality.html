@@ -96,16 +96,16 @@
         <th scope="col">ID</th>
 <!--        <th scope="col">Предметы</th>-->
         </thead>
-<!--        <tr>-->
-<!--            <td>{{teacher.id}}</td>-->
+        <tr>
+            <td>{{teacher.id}}</td>
 <!--            <td v-for="subject in {{teacher.subjects}}">-->
 <!--                -->
 <!--            </td>-->
-<!--        </tr>-->
+        </tr>
     </table>
 
 
-    <h4 v-if="teacher != null">Данные пользователя</h4>
+    <h4 v-if="user != null">Данные пользователя</h4>
     <h5 v-if="postUserStatusResponse != null">{{postUserStatus}}</h5>
     <form v-if="user == null" v-on:submit.prevent="addUser">
         <input type="text" v-model="username" name="username" placeholder="Логин"/>
@@ -205,7 +205,7 @@
                     .then(response=>{
                         this.postUserStatusResponse = response.data
                         this.postUserStatus = this.postUserStatusResponse? 'Пользователь успешно создан':'Не удалось создать пользователя'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             addStudent: function (){
@@ -217,7 +217,7 @@
                     .then(response=>{
                         this.postStudentStatusResponse = response.data
                         this.postStudentStatus = this.postStudentStatusResponse? 'Студент успешно создан':'Не удалось создать студента'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             addTeacher: function (){
@@ -227,7 +227,7 @@
                     .then(response=>{
                         this.postTeacherStatusResponse = response.data
                         this.postTeacherStatus = this.postTeacherStatusResponse? 'Преподаватель успешно создан':'Не удалось создать преподавателя'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             getPersonality: function (event){
@@ -286,7 +286,7 @@
                     .then(response=>{
                         this.editUserStatusResponse = response.data
                         this.editUserStatus = this.editUserStatusResponse? 'Данные пользователя успешно изменены':'Не удалось изменить данные пользователя'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             editPersonality: function (event) {
@@ -299,7 +299,7 @@
                     .then(response=>{
                         this.editPersonalityStatusResponse = response.data
                         this.editPersonalityStatus = this.editPersonalityStatusResponse? 'Личные данные успешно изменены':'Не удалось изменить личные данные'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             editStudent: function (event) {
@@ -309,7 +309,7 @@
                     .then(response=>{
                         this.editStudentStatusResponse = response.data
                         this.editStatus = this.editStudentStatusResponse? 'Данные студента успешно изменены':'Не удалось изменить данные студента'
-                        this.getPersonality()
+                        // this.getPersonality()
                     })
             },
             nullCheck: function (cat){

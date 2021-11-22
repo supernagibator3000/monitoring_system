@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class PageController {
 
     @GetMapping("/admin/personalities/{personalityId}")
-    public String showConcreteUser(@PathVariable Long personalityId){
+    public String showUser(@PathVariable Long personalityId){
         return "admin/admin_personality";
+    }
+
+    @GetMapping("/admin/groups/{groupId}")
+    public String showGroup(@PathVariable Long groupId){
+        return "admin/admin_group";
     }
 }

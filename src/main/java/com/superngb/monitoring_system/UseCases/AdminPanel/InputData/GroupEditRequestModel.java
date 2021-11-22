@@ -6,4 +6,5 @@ import lombok.Data;
 public class GroupEditRequestModel {
 
     private String name;
+    private String studentCardId;
 }

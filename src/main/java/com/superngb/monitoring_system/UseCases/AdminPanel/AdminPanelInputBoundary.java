@@ -38,6 +38,7 @@ public interface AdminPanelInputBoundary extends UserDetailsService {
     List<StudentDtoModel> getStudents();
     StudentDtoModel findStudent(Long id);
     StudentDtoModel findStudentByPersonality(Long id);
+    List<StudentDtoModel> findStudentsByGroup(Long id);
     boolean editStudent(Long id, StudentEditRequestModel studentEditRequestModel);
     List<StudentDtoModel> filterStudents(StudentFilterRequestModel studentFilterRequestModel);
     StudentDtoModel deleteStudent(Long id);

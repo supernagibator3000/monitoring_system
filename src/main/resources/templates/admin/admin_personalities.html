@@ -94,7 +94,7 @@
                     .then(response=>{
                         this.postStatusResponse = response.data
                         this.postStatus = this.postStatusResponse? 'Запись успешно добавлена':'Не удалось добавить запись'
-                        this.getPersonalities()
+                        // this.getPersonalities()
                     })
             },
             getPersonalities: function (event){
@@ -126,7 +126,7 @@
                 axios.delete(`/admin/deletePersonality/${personality.id}`)
                     .then(response=>{
                         this.deleted = response.data
-                        this.getPersonalities()
+                        // this.getPersonalities()
                     })
             }
         }

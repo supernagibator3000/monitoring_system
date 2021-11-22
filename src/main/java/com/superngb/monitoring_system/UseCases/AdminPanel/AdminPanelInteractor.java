@@ -281,8 +281,14 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
         if(groupByName!=null && groupByName!=group)
             return adminPanelOutputBoundary.prepareFailEditGroupView(GroupDtoModel.groupMapper(group));
 
-        if (!groupEditRequestModel.getName().equals(""))
+        if (groupEditRequestModel.getName() != null && !groupEditRequestModel.getName().equals(""))
             group.setName(groupEditRequestModel.getName());
+
+        Student student = adminPanelStudentDataAccess.findByStudentCardId(groupEditRequestModel.getStudentCardId());
+        if (student != null) {
+            student.setGroup(group);
+            adminPanelStudentDataAccess.save(student);
+        }
 
         adminPanelGroupDataAccess.save(group);
         GroupDtoModel groupDtoModel = GroupDtoModel.groupMapper(group);
@@ -340,6 +346,13 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
         Student student = adminPanelStudentDataAccess.findByPersonalityId(id);
         StudentDtoModel studentDtoModel = StudentDtoModel.studentMapper(student);
         return adminPanelOutputBoundary.prepareFindedStudentView(studentDtoModel);
+    }
+
+    @Override
+    public List<StudentDtoModel> findStudentsByGroup(Long id) {
+        List<Student> studentList = adminPanelStudentDataAccess.findAllByGroupId(id);
+        List<StudentDtoModel> studentDtoModelList = StudentDtoModel.listStudentsMapper(studentList);
+        return adminPanelOutputBoundary.convertStudents(studentDtoModelList);
     }
 
     @Override

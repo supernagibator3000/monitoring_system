@@ -105,6 +105,11 @@ public class StudentDataAccessImpl implements AdminPanelStudentDataAccess {
     }
 
     @Override
+    public List<Student> findAllByGroupId(Long id) {
+        return studentRepository.findAllByGroupId(id);
+    }
+
+    @Override
     public void save(Student student) {
         studentRepository.save(student);
     }

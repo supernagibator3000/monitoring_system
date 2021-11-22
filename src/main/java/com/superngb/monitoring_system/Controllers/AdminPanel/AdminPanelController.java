@@ -135,6 +135,11 @@ public class AdminPanelController {
         return adminPanelInputBoundary.createGroup(groupPostRequestModel);
     }
 
+    @GetMapping("/group/{groupId}/students")
+    public List<StudentDtoModel> showStudentsByGroup(@PathVariable Long groupId){
+        return adminPanelInputBoundary.findStudentsByGroup(groupId);
+    }
+
     // Students
 
     @GetMapping("/allStudents")
