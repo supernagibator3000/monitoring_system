@@ -10,6 +10,16 @@
     <a class="navbar-brand" href="/">Главная</a>
 </nav>
 <div id="app">
+
+    <h5 v-if="postStatusResponse != null">{{postStatus}}</h5>
+    <form v-on:submit.prevent="addPersonality">
+        <input type="text" v-model="newSecondName" name="second_name" placeholder="Фамилия"/>
+        <input type="text" v-model="newFirstName" name="first_name" placeholder="Имя"/>
+        <input type="text" v-model="newMiddleName" name="middle_name" placeholder="Отчество"/>
+        <input type="email" v-model="newEmail" name="email" placeholder="Email"/>
+        <input type="submit" class="btn btn-primary addPersonality" value="Создать">
+    </form>
+
     <form v-on:submit.prevent="findPersonalities">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
         <input type="text" v-model="second_name" name="second_name" placeholder="Фамилия"/>
@@ -18,7 +28,7 @@
         <input type="submit" class="btn btn-primary findPersonalities" value="Найти">
     </form>
 
-    <h3 v-if="deleted != ''">Человек {{deleted}} успешно удален</h3>
+<!--    <h3 v-if="deleted != ''">Человек {{deleted}} успешно удален</h3>-->
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
@@ -26,7 +36,7 @@
         <th scope="col">Имя</th>
         <th scope="col">Отчество</th>
         <th scope="col">Email</th>
-        <th scope="col" colspan="2">Actions</th>
+        <th scope="col"></th>
         </thead>
         <tbody>
         <tr v-for="personality in this.personalities">
@@ -37,14 +47,14 @@
             <td >{{personality.email}}</td>
             <td>
                 <form v-on:submit.prevent="showPersonality(personality)">
-                    <input type="submit" class="btn btn-primary showPersonality" value="Перейти">
+                    <input type="submit" class="btn btn-primary showPersonality" value="Подробнее">
                 </form>
             </td>
-            <td>
-                <form v-on:submit.prevent="deletePersonality(personality)">
-                    <input type="submit" class="btn btn-danger deletePersonality" value="Удалить"/>
-                </form>
-            </td>
+<!--            <td>-->
+<!--                <form v-on:submit.prevent="deletePersonality(personality)">-->
+<!--                    <input type="submit" class="btn btn-danger deletePersonality" value="Удалить"/>-->
+<!--                </form>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
@@ -60,16 +70,38 @@
             middle_name:'',
             email:'',
             deleted:'',
-            personalities: []
+            personalities: [],
+
+            newFirstName:'',
+            newSecondName:'',
+            newMiddleName:'',
+            newEmail:'',
+
+            postStatus:'',
+            postStatusResponse: null
         },
         async mounted(){
             await this.getPersonalities()
         },
         methods: {
+            addPersonality: function (){
+                axios.post('/admin/addPersonality',{
+                    "firstName": this.newFirstName,
+                    "secondName": this.newSecondName,
+                    "middleName": this.newMiddleName,
+                    "email": this.newEmail
+                })
+                    .then(response=>{
+                        this.postStatusResponse = response.data
+                        this.postStatus = this.postStatusResponse? 'Запись успешно добавлена':'Не удалось добавить запись'
+                        this.getPersonalities()
+                    })
+            },
             getPersonalities: function (event){
                 axios.get('/admin/allPersonalities')
                     .then(response=>{
                         this.personalities = response.data
+                        console.log(this.personalities)
                     })
             },
             findPersonalities: function (event) {

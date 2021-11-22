@@ -1,10 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Personality</title>
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Admin Personality Page</title>
 </head>
 <body>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
 
+    <h4>Личные данные</h4>
+    <h5 v-if="editPersonalityStatusResponse != null">{{editStatus}}</h5>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Отчество</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
+        </thead>
+        <tr>
+            <td>{{personality.id}}</td>
+            <td>
+                <label>
+                    <input type="text" v-model="second_name" name="second_name" :placeholder="personality.secondName" />
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="text" v-model="first_name" name="first_name" :placeholder="personality.firstName" />
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="text" v-model="middle_name" name="middle_name" :placeholder="personality.middleName" />
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="text" v-model="email" name="email" :placeholder="personality.email" />
+                </label>
+            </td>
+            <td>
+                <form v-on:submit.prevent="editPersonality">
+                    <input type="submit" class="btn btn-warning editPersonality" value="Редактировать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    <h4 v-if="student != null">Данные студента</h4>
+    <h5 v-if="postStudentStatusResponse != null">{{postStudentStatus}}</h5>
+    <form v-if="student == null" v-on:submit.prevent="addStudent">
+        <input type="text" v-model="student_card_id" name="student_card_id" placeholder="Номер студенческого билета"/>
+        <input type="text" v-model="group_name_post" name="group_name" placeholder="Группа"/>
+        <input type="submit" class="btn btn-primary addStudent" value="Создать студента">
+    </form>
+
+    <h5 v-if="editStudentStatusResponse != null">{{editStatus}}</h5>
+    <table v-if="student != null" class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Номер студенческого билета</th>
+        <th scope="col">Группа</th>
+        <th scope="col"></th>
+        </thead>
+        <tr>
+            <td>{{student.id}}</td>
+            <td>{{student.studentCardId}}</td>
+            <td>
+                <label>
+                    <input type="text" v-model="group_name" name="group_name" :placeholder="group.name" />
+                </label>
+            </td>
+            <td>
+                <form v-on:submit.prevent="editStudent">
+                    <input type="submit" class="btn btn-warning editStudent" value="Редактировать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h4 v-if="teacher != null">Данные преподавателя</h4>
+    <h5 v-if="postTeacherStatusResponse != null">{{postTeacherStatus}}</h5>
+    <form v-if="teacher == null" v-on:submit.prevent="addTeacher">
+        <input type="submit" class="btn btn-primary addTeacher" value="Создать преподавателя">
+    </form>
+
+    <table v-if="teacher != null" class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+<!--        <th scope="col">Предметы</th>-->
+        </thead>
+<!--        <tr>-->
+<!--            <td>{{teacher.id}}</td>-->
+<!--            <td v-for="subject in {{teacher.subjects}}">-->
+<!--                -->
+<!--            </td>-->
+<!--        </tr>-->
+    </table>
+
+
+    <h4 v-if="teacher != null">Данные пользователя</h4>
+    <h5 v-if="postUserStatusResponse != null">{{postUserStatus}}</h5>
+    <form v-if="user == null" v-on:submit.prevent="addUser">
+        <input type="text" v-model="username" name="username" placeholder="Логин"/>
+        <input type="text" v-model="password" name="password" placeholder="Пароль"/>
+        <input type="text" v-model="role" name="role" placeholder="Роль"/>
+        <input type="submit" class="btn btn-primary addUser" value="Создать пользователя">
+    </form>
+
+    <h5 v-if="editUserStatusResponse != null">{{editStatus}}</h5>
+    <table v-if="user != null" class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Роли</th>
+        <th scope="col"></th>
+        </thead>
+        <tr>
+            <td>{{user.id}}</td>
+            <td>
+                <label>
+                    <input type="text" v-model="username" name="username" :placeholder="user.username" />
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="checkbox" v-model="role_user" value="true" :checked="role_user" name="ROLE_USER"/>ROLE_USER
+                </label>
+                <label>
+                    <input type="checkbox" v-model="role_admin" value="true" :checked="role_admin" name="ROLE_ADMIN"/>ROLE_ADMIN
+                </label>
+            </td>
+            <td>
+                <form v-on:submit.prevent="editUser">
+                    <input type="submit" class="btn btn-warning editUser" value="Редактировать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            editStudentStatus:'',
+            editStudentStatusResponse: null,
+
+            editUserStatus:'',
+            editUserStatusResponse: null,
+
+            editPersonalityStatus:'',
+            editPersonalityStatusResponse: null,
+
+            postStudentStatus:'',
+            postStudentStatusResponse: null,
+
+            postUserStatus:'',
+            postUserStatusResponse: null,
+
+            postTeacherStatus:'',
+            postTeacherStatusResponse: null,
+
+            personality: null,
+            id: window.location.href.split("/").slice(-1)[0],
+            first_name:'',
+            second_name:'',
+            middle_name:'',
+            email:'',
+
+            user: null,
+            username:'',
+            password:'',
+            role:'',
+            role_user:false,
+            role_admin:false,
+
+            student: null,
+            student_card_id:'',
+            group_name_post:'',
+            group_name:'',
+
+            group: null,
+
+            teacher: null
+        },
+        async mounted(){
+            await this.getPersonality()
+        },
+        methods: {
+            addUser: function (){
+                axios.post('/admin/addUser',{
+                    "personalityId": this.id,
+                    "username": this.username,
+                    "password": this.password,
+                    "role": this.role
+                })
+                    .then(response=>{
+                        this.postUserStatusResponse = response.data
+                        this.postUserStatus = this.postUserStatusResponse? 'Пользователь успешно создан':'Не удалось создать пользователя'
+                        this.getPersonality()
+                    })
+            },
+            addStudent: function (){
+                axios.post('/admin/addStudent',{
+                    "personalityId": this.id,
+                    "studentCardId": this.student_card_id,
+                    "groupName": this.group_name_post
+                })
+                    .then(response=>{
+                        this.postStudentStatusResponse = response.data
+                        this.postStudentStatus = this.postStudentStatusResponse? 'Студент успешно создан':'Не удалось создать студента'
+                        this.getPersonality()
+                    })
+            },
+            addTeacher: function (){
+                axios.post('/admin/addTeacher',{
+                    "personalityId": this.id,
+                })
+                    .then(response=>{
+                        this.postTeacherStatusResponse = response.data
+                        this.postTeacherStatus = this.postTeacherStatusResponse? 'Преподаватель успешно создан':'Не удалось создать преподавателя'
+                        this.getPersonality()
+                    })
+            },
+            getPersonality: function (event){
+                axios.get(`/admin/personality/${this.id}`)
+                    .then(response=>{
+                        this.personality = response.data
+                        console.log(this.personality)
+
+                        this.getUser()
+                        this.getStudent()
+                        this.getTeacher()
+                    })
+            },
+            getUser: function (event){
+                axios.get(`/admin/personality/${this.id}/user`)
+                    .then(response=>{
+                        this.user = response.data
+                        for (let i=0; i<this.user.roles.length;++i) {
+                            if (this.user.roles[i] === 'ROLE_USER') this.role_user = true
+                            if (this.user.roles[i] === 'ROLE_ADMIN') this.role_admin = true
+                        }
+                        console.log(this.user)
+                    })
+            },
+            getStudent: function (event){
+                axios.get(`/admin/personality/${this.id}/student`)
+                    .then(response=>{
+                        this.student = response.data
+                        this.getGroup()
+                        console.log(this.student)
+                    })
+            },
+            getGroup: function (event){
+                axios.get(`/admin/group/${this.student.group}`)
+                    .then(response=>{
+                        this.group = response.data
+
+                        console.log(this.group)
+                    })
+            },
+            getTeacher: function (event){
+                axios.get(`/admin/personality/${this.id}/teacher`)
+                    .then(response=>{
+                        this.teacher = response.data
+
+                        console.log(this.teacher)
+                    })
+            },
+            editUser: function (event) {
+                axios.put(`/admin/user/${this.user.id}`,{
+                    "userId": this.user.id,
+                    "username": this.username,
+                    "roleUser": this.nullCheck(this.role_user),
+                    "roleAdmin": this.nullCheck(this.role_admin)
+                })
+                    .then(response=>{
+                        this.editUserStatusResponse = response.data
+                        this.editUserStatus = this.editUserStatusResponse? 'Данные пользователя успешно изменены':'Не удалось изменить данные пользователя'
+                        this.getPersonality()
+                    })
+            },
+            editPersonality: function (event) {
+                axios.put(`/admin/personality/${this.id}`,{
+                    "firstName": this.first_name,
+                    "secondName": this.second_name,
+                    "middleName": this.middle_name,
+                    "email": this.email
+                })
+                    .then(response=>{
+                        this.editPersonalityStatusResponse = response.data
+                        this.editPersonalityStatus = this.editPersonalityStatusResponse? 'Личные данные успешно изменены':'Не удалось изменить личные данные'
+                        this.getPersonality()
+                    })
+            },
+            editStudent: function (event) {
+                axios.put(`/admin/student/${this.student.id}`,{
+                    "group": this.group_name
+                })
+                    .then(response=>{
+                        this.editStudentStatusResponse = response.data
+                        this.editStatus = this.editStudentStatusResponse? 'Данные студента успешно изменены':'Не удалось изменить данные студента'
+                        this.getPersonality()
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            }
+        }
+    })
+</script>
 </body>
 </html>

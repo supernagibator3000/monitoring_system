@@ -1,5 +1,6 @@
 package com.superngb.monitoring_system.Configs;
 
+import com.superngb.monitoring_system.UseCases.AdminPanel.AdminPanelInteractor;
 import com.superngb.monitoring_system.UseCases.UserAuthorization.UserAuthorizationInteractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserAuthorizationInteractor userAuthorizationInteractor;
 
+    @Autowired
+    AdminPanelInteractor adminPanelInteractor;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -28,13 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-//                .antMatchers("/sign_up").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/profile/**").hasRole("USER")
                 //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**", "/css/**", "/*").permitAll()
+                .antMatchers("/", "/resources/**", "/css/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
@@ -53,5 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userAuthorizationInteractor).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(adminPanelInteractor).passwordEncoder(bCryptPasswordEncoder());
     }
 }

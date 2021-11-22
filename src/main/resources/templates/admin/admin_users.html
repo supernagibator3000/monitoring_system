@@ -12,6 +12,7 @@
 <div id="app">
     <form v-on:submit.prevent="findUsers">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
+        <input type="number" v-model="personality" name="personality" placeholder="personalityID"/>
         <input type="text" v-model="username" name="username" placeholder="Username"/>
         <label>
             <input type="checkbox" v-model="role_user" value="true" name="ROLE_USER"/>ROLE_USER
@@ -22,31 +23,33 @@
         <input type="submit" class="btn btn-primary findUsers" value="Найти">
     </form>
 
-    <h3 v-if="deleted != ''">Пользователь {{deleted}} успешно удален</h3>
+<!--    <h3 v-if="deleted != ''">Пользователь {{deleted}} успешно удален</h3>-->
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
+        <th scope="col">Personality ID</th>
         <th scope="col">UserName</th>
         <th scope="col">Roles</th>
-        <th scope="col" colspan="2">Actions</th>
+        <th scope="col"></th>
         </thead>
         <tbody>
         <tr v-for="user in this.users">
             <td>{{user.id}}</td>
+            <td>{{user.personality}}</td>
             <td>{{user.username}}</td>
             <td >
                 <h5 v-for="role in user.roles">{{role}}</h5>
             </td>
             <td>
                 <form v-on:submit.prevent="showUser(user)">
-                    <input type="submit" class="btn btn-primary showUser" value="Show">
+                    <input type="submit" class="btn btn-primary showUser" value="Подробнее">
                 </form>
             </td>
-            <td>
-                <form v-on:submit.prevent="deleteUser(user)">
-                    <input type="submit" class="btn btn-danger deleteUser" value="Delete"/>
-                </form>
-            </td>
+<!--            <td>-->
+<!--                <form v-on:submit.prevent="deleteUser(user)">-->
+<!--                    <input type="submit" class="btn btn-danger deleteUser" value="Удалить"/>-->
+<!--                </form>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
@@ -57,6 +60,7 @@
         el: '#app',
         data: {
             id: null,
+            personality: null,
             username:'',
             role_user:'',
             role_admin:'',
@@ -71,13 +75,16 @@
                 axios.get('/admin/allUsers')
                     .then(response=>{
                         this.users = response.data
+                        console.log(this.users)
                     })
             },
             findUsers: function (event) {
                 console.log(this.role_user)
                 console.log(this.nullCheck(this.role_user))
+                console.log(this.personality)
                 axios.post('/admin/filterUsers',{
                     "id": this.id,
+                    "personality": this.personality,
                     "username": this.username,
                     "roleUser": this.nullCheck(this.role_user),
                     "roleAdmin": this.nullCheck(this.role_admin)
@@ -91,7 +98,7 @@
                 else return cat
             },
             showUser: function (user) {
-                location.href = `/admin/users/${user.id}`
+                location.href = `/admin/personalities/${user.personality}`
             },
             deleteUser: function (user) {
                 axios.delete(`/admin/deleteUser/${user.id}`)
@@ -99,7 +106,6 @@
                         this.deleted = response.data
                         this.getUsers()
                     })
-
             }
         }
     })

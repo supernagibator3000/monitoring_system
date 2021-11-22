@@ -1,6 +1,7 @@
 package com.superngb.monitoring_system.Database;
 
 import com.superngb.monitoring_system.Entities.person.Personality;
+import com.superngb.monitoring_system.Entities.person.User;
 import com.superngb.monitoring_system.Repositories.person.PersonalityRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelPersonalityDataAccess;
 
@@ -11,7 +12,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PersonalityDataAccessImpl implements AdminPanelPersonalityDataAccess {
 
@@ -71,6 +74,11 @@ public class PersonalityDataAccessImpl implements AdminPanelPersonalityDataAcces
 
         criteriaQuery.select(personality).where(predicate);
         List<Personality> personalities = entityManager.createQuery(criteriaQuery).getResultList();
+
+        Set<Personality> personalitySet = new HashSet<>(personalities);
+        personalities.clear();
+        personalities.addAll(personalitySet);
+
         personalities.sort(Comparator.comparingLong(Personality::getId));
 
         return personalities;

@@ -1,6 +1,7 @@
 package com.superngb.monitoring_system.Database;
 
 import com.superngb.monitoring_system.Entities.Role;
+import com.superngb.monitoring_system.Entities.person.Personality;
 import com.superngb.monitoring_system.Entities.person.User;
 import com.superngb.monitoring_system.Enums.RoleEnum;
 import com.superngb.monitoring_system.Repositories.person.UserRepository;
@@ -42,27 +43,35 @@ public class UserDataAccessImpl implements UserAuthorizationUserDataAccess, Admi
     }
 
     @Override
-    public List<User> filter(Long id, String username, String ROLE_USER, String ROLE_ADMIN) {
-        if (id==null && username.equals("") && ROLE_USER.equals("") && ROLE_ADMIN.equals("")){
+    public List<User> filter(Long id, Long personality, String username, String ROLE_USER, String ROLE_ADMIN) {
+        if (id == null && personality == null && username.equals("") && ROLE_USER.equals("") && ROLE_ADMIN.equals("")){
             return getAll();
         }
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> user = criteriaQuery.from(User.class);
 
-        Join<User, Role> join = user.join("roles", JoinType.INNER);
+        Join<User, Role> roleJoin = user.join("roles", JoinType.INNER);
+        Join<User, Personality> personalityJoin = user.join("personality", JoinType.INNER);
+
 
         Predicate predicateForId = criteriaBuilder.equal(user.get("id"), id);
+        Predicate predicateForPersonality = criteriaBuilder.equal(personalityJoin.get("id").as(Long.class), personality);
         Predicate predicateForUsername = criteriaBuilder.like(user.get("username"), username);
-        Predicate predicateForRoleUser = criteriaBuilder.like(join.get("name").as(String.class), RoleEnum.ROLE_USER.name());
-        Predicate predicateForRoleAdmin = criteriaBuilder.like(join.get("name").as(String.class),RoleEnum.ROLE_ADMIN.name());
+        Predicate predicateForRoleUser = criteriaBuilder.like(roleJoin.get("name").as(String.class), RoleEnum.ROLE_USER.name());
+        Predicate predicateForRoleAdmin = criteriaBuilder.like(roleJoin.get("name").as(String.class), RoleEnum.ROLE_ADMIN.name());
 
         Predicate fieldPredicate = null;
         Predicate rolePredicate = null;
-        Predicate finalePredicate;
+        Predicate finalPredicate;
 
         if(id!=null){
             fieldPredicate = criteriaBuilder.and(predicateForId);
+        }
+        if(personality!=null){
+            if (fieldPredicate != null) fieldPredicate = criteriaBuilder.and(fieldPredicate,predicateForPersonality);
+            else fieldPredicate = predicateForPersonality;
         }
         if(!username.equals("")){
             if (fieldPredicate != null) fieldPredicate = criteriaBuilder.and(fieldPredicate,predicateForUsername);
@@ -76,11 +85,11 @@ public class UserDataAccessImpl implements UserAuthorizationUserDataAccess, Admi
             else rolePredicate = predicateForRoleAdmin;
         }
 
-        if (fieldPredicate==null) finalePredicate = rolePredicate;
-        else if (rolePredicate==null) finalePredicate = fieldPredicate;
-        else finalePredicate = criteriaBuilder.and(fieldPredicate,rolePredicate);
+        if (fieldPredicate==null) finalPredicate = rolePredicate;
+        else if (rolePredicate==null) finalPredicate = fieldPredicate;
+        else finalPredicate = criteriaBuilder.and(fieldPredicate,rolePredicate);
 
-        criteriaQuery.select(user).where(finalePredicate);
+        criteriaQuery.select(user).where(finalPredicate);
         List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
 
         Set<User> userSet = new HashSet<>(users);
@@ -105,5 +114,10 @@ public class UserDataAccessImpl implements UserAuthorizationUserDataAccess, Admi
             return user;
         }
         else return null;
+    }
+
+    @Override
+    public User findByPersonalityId(Long personality){
+        return userRepository.findByPersonalityId(personality);
     }
 }

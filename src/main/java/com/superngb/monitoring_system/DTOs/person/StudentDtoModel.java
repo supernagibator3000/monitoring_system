@@ -43,7 +43,7 @@ public class StudentDtoModel implements Serializable {
         return new StudentDtoModel(student.getId(), student.getPersonality().getId(), student.getStudentCardId(), student.getGroup().getId(), subjects, scores, attendanceList);
     }
 
-    static List<StudentDtoModel> listStudentsMapper(List<Student> students){
+    static public List<StudentDtoModel> listStudentsMapper(List<Student> students){
         List<StudentDtoModel> studentDtoModels = new ArrayList<>();
         for (Student student: students)
             studentDtoModels.add(studentMapper(student));

@@ -3,9 +3,10 @@ package com.superngb.monitoring_system.UseCases.AdminPanel.InputData;
 import lombok.Data;
 
 @Data
-public class EditUserRequestModel {
+public class UserPostRequestModel {
 
+    private Long personalityId;
     private String username;
-    private String roleUser;
-    private String roleAdmin;
+    private String password;
+    private String role;
 }
