@@ -1,14 +1,19 @@
 package com.superngb.monitoring_system.Entities;
 
-import com.superngb.monitoring_system.Entities.event.Event;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.superngb.monitoring_system.Entities.event.Checkpoint;
+import com.superngb.monitoring_system.Entities.event.Lesson;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Entities.person.Teacher;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "subjects")
 public class Subject {
@@ -21,17 +26,25 @@ public class Subject {
     private String name;
 
     @OneToMany(mappedBy = "subject")
-    private List<Event> events;
+//    @JsonIgnore
+    private List<Lesson> lessons;
 
-    @Transient
+    @OneToMany(mappedBy = "subject")
+//    @JsonIgnore
+    private List<Checkpoint> checkpoints;
+
+//    @Transient
     @ManyToMany(mappedBy = "subjects")
+//    @JsonIgnore
     private List<Group> groups;
 
-    @Transient
+//    @Transient
     @ManyToMany(mappedBy = "subjects")
+//    @JsonIgnore
     private List<Student> students;
 
-    @Transient
+//    @Transient
     @ManyToMany(mappedBy = "subjects")
+//    @JsonIgnore
     private List<Teacher> teachers;
 }

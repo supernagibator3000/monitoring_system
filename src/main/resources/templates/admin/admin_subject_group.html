@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Admin Subject Page</title>
+</head>
+<body>
+<h1>Вы находитесь в окне администратора: Предметы</h1>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin/subjects">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
+
+    <h2>Предмет: {{subject.name}}</h2>
+    <h5 v-if="editStatusResponse != null">{{editStatus}}</h5>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название предмета</th>
+        <th scope="col"></th>
+        </thead>
+        <tr>
+            <td>{{subject.id}}</td>
+            <td>
+                <label>
+                    <input type="text" v-model="name" name="name" :placeholder="subject.name" />
+                </label>
+            </td>
+            <td>
+                <form v-on:submit.prevent="editSubject">
+                    <input type="submit" class="btn btn-warning editSubject" value="Редактировать"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    <h4>Лекции</h4>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название лекции</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="lesson in this.lessons">
+            <td>{{lesson.id}}</td>
+            <td>{{lesson.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Оцениваемые работы</h4>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название работы</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="checkpoint in this.checkpoints">
+            <td>{{checkpoint.id}}</td>
+            <td>{{checkpoint.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Преподаватели</h4>
+    <h5 v-if="addTeacherStatusResponse != null">{{addTeacherStatus}}</h5>
+    <form v-on:submit.prevent="addTeacherToSubject">
+        <input type="number" v-model="teacher_id" name="teacherId" placeholder="ID преподавателя"/>
+        <input type="submit" class="btn btn-primary addTeacherToSubject" value="Добавить">
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">ID личного дела</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="teacher in this.teachers">
+            <td>{{teacher.id}}</td>
+            <td>{{teacher.personality}}</td>
+            <td>
+                <form v-on:submit.prevent="showTeacher(teacher)">
+                    <input type="submit" class="btn btn-primary showTeacher" value="Подробнее">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Группы</h4>
+    <h5 v-if="addGroupStatusResponse != null">{{addGroupStatus}}</h5>
+    <form v-on:submit.prevent="addGroupToSubject">
+        <input type="number" v-model="group_id" name="groupId" placeholder="ID группы"/>
+        <input type="submit" class="btn btn-primary addGroupToSubject" value="Добавить">
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название группы</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="group in this.groups">
+            <td>{{group.id}}</td>
+            <td>{{group.name}}</td>
+            <td>
+                <form v-on:submit.prevent="showGroup(group)">
+                    <input type="submit" class="btn btn-primary showGroup" value="Подробнее">
+                </form>
+            </td>
+            <td>
+                <form v-on:submit.prevent="showMarks(group)">
+                    <input type="submit" class="btn btn-primary showMarks" value="Оценки">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            addGroupStatus:'',
+            addGroupStatusResponse: null,
+
+            addTeacherStatus:'',
+            addTeacherStatusResponse: null,
+
+            editStatus:'',
+            editStatusResponse: null,
+
+            id: window.location.href.split("/").slice(-1)[0],
+
+            lessons: [],
+            checkpoints: [],
+            groups: [],
+            teachers: [],
+
+            subject: null,
+            name:'',
+
+            teacher_id: null,
+            group_id: null
+        },
+        async mounted(){
+            await this.getSubject()
+        },
+        methods: {
+            addGroupToSubject: function () {
+                axios.put(`/admin/subject/${this.id}`,{
+                    "groups": [this.group_id]
+                })
+                    .then(response=>{
+                        this.addGroupStatusResponse = response.data
+                        this.addGroupStatus = this.addGroupStatusResponse? 'Группа успешно добавлена':'Не удалось добавить группу'
+                        // this.getGroup()
+                    })
+            },
+            addTeacherToSubject: function () {
+                axios.put(`/admin/subject/${this.id}`,{
+                    "teachers": [this.teacher_id]
+                })
+                    .then(response=>{
+                        this.addTeacherStatusResponse = response.data
+                        this.addTeacherStatus = this.addTeacherStatusResponse? 'Преподаватель успешно добавлен':'Не удалось добавить преподавателя'
+                        // this.getGroup()
+                    })
+            },
+            getSubject: function (event){
+                axios.get(`/admin/subject/${this.id}`)
+                    .then(response=>{
+                        this.subject = response.data
+                        console.log(this.subject)
+
+                        this.getTeachers()
+                        this.getLessons()
+                        this.getCheckpoints()
+                        this.getGroups()
+                    })
+            },
+            getLessons: function (){
+                for (let lesson of this.subject.lessons)
+                    axios.get(`/admin/lesson/${lesson}`)
+                        .then(response=>{
+                            this.lessons.push(response.data)
+                        })
+                console.log(this.lessons)
+            },
+            getCheckpoints: function (){
+                for (let checkpoint of this.subject.checkpoints)
+                    axios.get(`/admin/checkpoint/${checkpoint}`)
+                        .then(response=>{
+                            this.checkpoints.push(response.data)
+                        })
+                console.log(this.checkpoints)
+            },
+            getTeachers: function (){
+                for (let teacher of this.subject.teachers)
+                    axios.get(`/admin/teacher/${teacher}`)
+                        .then(response=>{
+                            this.teachers.push(response.data)
+                        })
+                console.log(this.teachers)
+            },
+            getGroups: function (){
+                for (let group of this.subject.groups)
+                    axios.get(`/admin/group/${group}`)
+                        .then(response=>{
+                            this.groups.push(response.data)
+                        })
+                console.log(this.groups)
+            },
+            editSubject: function (event) {
+                axios.put(`/admin/subject/${this.id}`,{
+                    "name": this.name
+                })
+                    .then(response=>{
+                        this.editStatusResponse = response.data
+                        this.editStatus = this.editStatusResponse? 'Данные предмета успешно изменены':'Не удалось изменить данные предмета'
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showTeacher: function (teacher) {
+                location.href = `/admin/personalities/${teacher.personality}`
+            },
+            showGroup: function (group) {
+                location.href = `/admin/groups/${group.id}`
+            },
+            showMarks: function (group) {
+                location.href = `/admin/subject/${this.id}/group/${group.id}`
+            }
+        }
+    })
+</script>
+</body>
+</html>

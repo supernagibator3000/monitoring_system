@@ -1,15 +1,15 @@
 package com.superngb.monitoring_system.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.person.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,6 +24,7 @@ public class Role implements GrantedAuthority {
 
     @Transient
     @ManyToMany(mappedBy = "roles")
+//    @JsonIgnore
     private List<User> users;
 
     public Role(Long id, String name) {

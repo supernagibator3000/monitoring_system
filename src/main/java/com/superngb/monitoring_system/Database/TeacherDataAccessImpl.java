@@ -31,8 +31,8 @@ public class TeacherDataAccessImpl implements AdminPanelTeacherDataAccess {
     }
 
     @Override
-    public List<Teacher> filter(Long id, Long personality, Long subject) {
-        if (id == null && subject == null){
+    public List<Teacher> filter(Long id, Long personality) {
+        if (id == null && personality == null){
             return getAll();
         }
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -40,22 +40,14 @@ public class TeacherDataAccessImpl implements AdminPanelTeacherDataAccess {
         Root<Teacher> teacher = criteriaQuery.from(Teacher.class);
 
         Join<Teacher, Personality> personalityJoin = teacher.join("personality", JoinType.INNER);
-        Join<Teacher, Subject> subjectJoin = teacher.join("subjects", JoinType.INNER);
 
         Predicate predicateForId = criteriaBuilder.equal(teacher.get("id"), id);
         Predicate predicateForPersonality = criteriaBuilder.equal(personalityJoin.get("id").as(Long.class), personality);
-        Predicate predicateForSubject = criteriaBuilder.equal(subjectJoin.get("id").as(Long.class), subject);
 
         Predicate predicate = null;
 
         if(id!=null){
             predicate = criteriaBuilder.and(predicateForId);
-        }
-        if(subject!=null){
-            if (predicate != null)
-                predicate = criteriaBuilder.and(predicate,predicateForSubject);
-            else
-                predicate = predicateForSubject;
         }
         if(personality!=null){
             if (predicate != null)

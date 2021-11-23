@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AdminPanelTeacherDataAccess {
     List<Teacher> getAll();
-    List<Teacher> filter(Long id, Long personality, Long subject);
+    List<Teacher> filter(Long id, Long personality);
     Teacher findById(Long id);
     void save(Teacher teacher);
     Teacher deleteById(Long id);

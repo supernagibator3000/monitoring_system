@@ -5,14 +5,16 @@
     <title>Admin Users Page</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<h1>Вы находитесь в окне администратора: Пользователи</h1>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/admin">Назад</a>
     <a class="navbar-brand" href="/">Главная</a>
 </nav>
 <div id="app">
+
     <form v-on:submit.prevent="findUsers">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
-        <input type="number" v-model="personality" name="personality" placeholder="personalityID"/>
+        <input type="number" v-model="personality" name="personality" placeholder="ID Личного дела"/>
         <input type="text" v-model="username" name="username" placeholder="Username"/>
         <label>
             <input type="checkbox" v-model="role_user" value="true" name="ROLE_USER"/>ROLE_USER
@@ -23,13 +25,12 @@
         <input type="submit" class="btn btn-primary findUsers" value="Найти">
     </form>
 
-<!--    <h3 v-if="deleted != ''">Пользователь {{deleted}} успешно удален</h3>-->
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
-        <th scope="col">Personality ID</th>
-        <th scope="col">UserName</th>
-        <th scope="col">Roles</th>
+        <th scope="col">ID Личного дела</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Роли</th>
         <th scope="col"></th>
         </thead>
         <tbody>
@@ -45,11 +46,6 @@
                     <input type="submit" class="btn btn-primary showUser" value="Подробнее">
                 </form>
             </td>
-<!--            <td>-->
-<!--                <form v-on:submit.prevent="deleteUser(user)">-->
-<!--                    <input type="submit" class="btn btn-danger deleteUser" value="Удалить"/>-->
-<!--                </form>-->
-<!--            </td>-->
         </tr>
         </tbody>
     </table>
@@ -99,13 +95,6 @@
             },
             showUser: function (user) {
                 location.href = `/admin/personalities/${user.personality}`
-            },
-            deleteUser: function (user) {
-                axios.delete(`/admin/deleteUser/${user.id}`)
-                    .then(response=>{
-                        this.deleted = response.data
-                        this.getUsers()
-                    })
             }
         }
     })

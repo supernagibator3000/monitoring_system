@@ -1,12 +1,16 @@
 package com.superngb.monitoring_system.Entities.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.Subject;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "teachers")
 public class Teacher{
@@ -24,5 +28,6 @@ public class Teacher{
             joinColumns = {@JoinColumn(name="teacher_id", referencedColumnName="id")},
             inverseJoinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")}
     )
+//    @JsonIgnore
     private List<Subject> subjects;
 }

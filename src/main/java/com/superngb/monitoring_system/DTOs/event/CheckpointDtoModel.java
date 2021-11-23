@@ -16,7 +16,8 @@ import java.util.List;
 public class CheckpointDtoModel implements Serializable {
 
     private Long id;
-    private Long event;
+    private String name;
+    private Long subject;
     private List<Long> scoreList;
 
     static public CheckpointDtoModel checkpointMapper(Checkpoint checkpoint) {
@@ -25,7 +26,7 @@ public class CheckpointDtoModel implements Serializable {
         for (Score score: checkpoint.getScoreList())
             scoreList.add(score.getId());
 
-        return new CheckpointDtoModel(checkpoint.getId(), checkpoint.getEvent().getId(), scoreList);
+        return new CheckpointDtoModel(checkpoint.getId(), checkpoint.getName(), checkpoint.getSubject().getId(), scoreList);
     }
 
     static public List<CheckpointDtoModel> listCheckpointsMapper(List<Checkpoint> checkpoints) {

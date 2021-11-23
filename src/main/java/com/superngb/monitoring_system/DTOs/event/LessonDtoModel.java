@@ -16,7 +16,8 @@ import java.util.List;
 public class LessonDtoModel implements Serializable {
 
     private Long id;
-    private Long event;
+    private String name;
+    private Long subject;
     private List<Long> attendanceList;
 
     static public LessonDtoModel lessonMapper(Lesson lesson){
@@ -25,7 +26,7 @@ public class LessonDtoModel implements Serializable {
         for (Attendance attendance: lesson.getAttendanceList())
             attendanceList.add(attendance.getId());
 
-        return new LessonDtoModel(lesson.getId(), lesson.getEvent().getId(), attendanceList);
+        return new LessonDtoModel(lesson.getId(), lesson.getName(), lesson.getSubject().getId(), attendanceList);
     }
 
     static  public List<LessonDtoModel> listLessonsMapper(List<Lesson> lessons){

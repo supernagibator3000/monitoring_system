@@ -3,11 +3,14 @@ package com.superngb.monitoring_system.Entities.mark;
 import com.superngb.monitoring_system.Entities.event.Lesson;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Enums.AttendanceEnum;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "attendance")
 public class Attendance {

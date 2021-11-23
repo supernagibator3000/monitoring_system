@@ -1,7 +1,8 @@
 package com.superngb.monitoring_system.Entities.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.Role;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,7 +10,10 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -33,6 +37,7 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
             inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
     )
+//    @JsonIgnore
     private List<Role> roles;
 
     @Override

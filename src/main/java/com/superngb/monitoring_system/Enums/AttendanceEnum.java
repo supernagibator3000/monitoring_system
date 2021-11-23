@@ -1,11 +1,7 @@
 package com.superngb.monitoring_system.Enums;
 
 public enum AttendanceEnum {
-//    WAS_ABSENT_FOR_NO_GOOD_REASON("не был"),
-//    WAS_ABSENT_FOR_A_GOOD_REASON("не был по уважительной причине"),
-//    WAS_ILL("болел"),
-//    ATTENDED("был");
-
+    EMPTY("пусто"),
     ABSENT("не был"),
     REASON("не был по уважительной причине"),
     ILL("болел"),

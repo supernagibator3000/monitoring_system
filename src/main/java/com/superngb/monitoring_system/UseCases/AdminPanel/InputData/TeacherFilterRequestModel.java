@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class TeacherFilterRequestModel {
 
+    private Long id;
     private Long personalityId;
-    private Long subject;
 }

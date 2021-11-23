@@ -1,10 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <th:block th:include="general.html :: headerfiles"></th:block>
     <title>Admin Students Page</title>
 </head>
 <body>
+<h1>Вы находитесь в окне администратора: Студенты</h1>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
 
+    <form v-on:submit.prevent="findStudents">
+        <input type="number" v-model="id" name="id" placeholder="ID"/>
+        <input type="text" v-model="student_card_id" name="studentCardId" placeholder="Номер студенческой книжки"/>
+        <input type="number" v-model="personality_id" name="personalityId" placeholder="ID Личного дела"/>
+        <input type="number" v-model="group_id" name="groupId" placeholder="ID группы"/>
+        <input type="submit" class="btn btn-primary findStudents" value="Найти">
+    </form>
+
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">ID Личного дела</th>
+        <th scope="col">Номер студенческой книжки</th>
+        <th scope="col">ID группы</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="student in this.students">
+            <td>{{student.id}}</td>
+            <td>{{student.personality}}</td>
+            <td>{{student.studentCardId}}</td>
+            <td>{{student.group}}</td>
+            <td>
+                <form v-on:submit.prevent="showStudent(student)">
+                    <input type="submit" class="btn btn-primary showStudent" value="Подробнее">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            id: null,
+            student_card_id:'',
+            personality_id: null,
+            group_id: null,
+            students: []
+
+        },
+        async mounted(){
+            await this.getStudents()
+        },
+        methods: {
+            getStudents: function (event){
+                axios.get('/admin/allStudents')
+                    .then(response=>{
+                        this.students = response.data
+                        console.log(this.students)
+                    })
+            },
+            findStudents: function (event) {
+                console.log(this.id)
+                console.log(this.student_card_id)
+                console.log(this.personality_id)
+                console.log(this.group_id)
+                axios.post('/admin/filterStudents',{
+                    "id": this.id,
+                    "studentCardId": this.student_card_id,
+                    "personalityId": this.personality_id,
+                    "groupId": this.group_id
+                })
+                    .then(response=>{
+                        this.students = response.data
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showStudent: function (student) {
+                location.href = `/admin/personalities/${student.personality}`
+            },
+        }
+    })
+</script>
 </body>
 </html>

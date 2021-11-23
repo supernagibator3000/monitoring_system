@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Subjects</title>
+    <th:block th:include="general.html :: headerfiles"></th:block>
+    <title>Admin Subjects Page</title>
 </head>
 <body>
+<h1>Вы находитесь в окне администратора: Предметы</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
 
+    <h5 v-if="postStatusResponse != null">{{postStatus}}</h5>
+    <form v-on:submit.prevent="addSubject">
+        <input type="text" v-model="post_name" name="name" placeholder="Название предмета"/>
+        <input type="submit" class="btn btn-primary addSubject" value="Создать">
+    </form>
+
+    <form v-on:submit.prevent="findSubjects">
+        <input type="number" v-model="id" name="id" placeholder="ID"/>
+        <input type="text" v-model="name" name="name" placeholder="Название предмета"/>
+<!--        <input type="number" v-model="group_id" name="groupId" placeholder="ID группы"/>-->
+<!--        <input type="number" v-model="teacher_id" name="teacherId" placeholder="ID преподавателя"/>-->
+        <input type="submit" class="btn btn-primary findSubjects" value="Найти">
+    </form>
+
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название предмета</th>
+<!--        <th scope="col">ID групп</th>-->
+<!--        <th scope="col">ID преподавателей</th>-->
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="subject in this.subjects">
+            <td>{{subject.id}}</td>
+            <td>{{subject.name}}</td>
+<!--            <td v-for="group in subject.groups">-->
+<!--                <a>{{group}} </a>-->
+<!--            </td>-->
+<!--            <td v-for="teacher in subject.teachers">-->
+<!--                <a>{{teacher}} </a>-->
+<!--            </td>-->
+            <td>
+                <form v-on:submit.prevent="showSubject(subject)">
+                    <input type="submit" class="btn btn-primary showSubject" value="Подробнее">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            id: null,
+            post_name:'',
+            name:'',
+            group_id: null,
+            teacher_id: null,
+            deleted:'',
+            subjects: [],
+
+            postStatus:'',
+            postStatusResponse: null
+        },
+        async mounted(){
+            await this.getSubjects()
+        },
+        methods: {
+            addSubject: function (){
+                axios.post(`/admin/addSubject`,{
+                    "name": this.post_name
+                })
+                    .then(response=>{
+                        this.postStatusResponse = response.data
+                        this.postStatus = this.postStatusResponse? 'Предмет успешно добавлен':'Не удалось добавить предмет'
+                    })
+            },
+            getSubjects: function (event){
+                axios.get(`/admin/allSubjects`)
+                    .then(response=>{
+                        this.subjects = response.data
+                        console.log(this.subjects)
+                    })
+            },
+            findSubjects: function (event) {
+                axios.post(`/admin/filterSubjects`,{
+                    "id": this.id,
+                    "name": this.name
+                })
+                    .then(response=>{
+                        this.subjects = response.data
+                        console.log(this.subjects)
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showSubject: function (subject) {
+                location.href = `/admin/subjects/${subject.id}`
+            }
+        }
+    })
+</script>
 </body>
 </html>

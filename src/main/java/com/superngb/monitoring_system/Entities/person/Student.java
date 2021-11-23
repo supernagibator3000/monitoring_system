@@ -1,5 +1,6 @@
 package com.superngb.monitoring_system.Entities.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.Group;
 import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Entities.mark.Attendance;
@@ -37,11 +38,14 @@ public class Student{
             joinColumns = {@JoinColumn(name="student_id", referencedColumnName="id")},
             inverseJoinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")}
     )
+    @JsonIgnore
     private List<Subject> subjects;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<Score> scores;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<Attendance> attendance;
 }

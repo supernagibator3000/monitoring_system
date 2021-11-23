@@ -2,14 +2,17 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <th:block th:include="general.html :: headerfiles"></th:block>
-    <title>Admin Personality Page</title>
+    <title>Admin Group Page</title>
 </head>
 <body>
+<h1>Вы находитесь в окне администратора: Группы</h1>
 <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/admin/groups">Назад</a>
     <a class="navbar-brand" href="/">Главная</a>
 </nav>
 <div id="app">
+
+    <h2>Группа: {{group.name}}</h2>
 
 <!--    <h5 v-if="addStudentStatusResponse != null">{{addStudentStatus}}</h5>-->
 <!--    <form v-if="student == null" v-on:submit.prevent="addStudentToGroup">-->

@@ -5,8 +5,9 @@
     <title>Admin Personality Page</title>
 </head>
 <body>
+<h1>Вы находитесь в окне администратора: Личные дела</h1>
 <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/admin/personalities">Назад</a>
     <a class="navbar-brand" href="/">Главная</a>
 </nav>
 <div id="app">
@@ -256,12 +257,13 @@
                 axios.get(`/admin/personality/${this.id}/student`)
                     .then(response=>{
                         this.student = response.data
-                        this.getGroup()
                         console.log(this.student)
+
+                        this.getGroup(this.student)
                     })
             },
-            getGroup: function (event){
-                axios.get(`/admin/group/${this.student.group}`)
+            getGroup: function (student){
+                axios.get(`/admin/group/${student.group}`)
                     .then(response=>{
                         this.group = response.data
 
@@ -286,7 +288,6 @@
                     .then(response=>{
                         this.editUserStatusResponse = response.data
                         this.editUserStatus = this.editUserStatusResponse? 'Данные пользователя успешно изменены':'Не удалось изменить данные пользователя'
-                        // this.getPersonality()
                     })
             },
             editPersonality: function (event) {
@@ -299,7 +300,6 @@
                     .then(response=>{
                         this.editPersonalityStatusResponse = response.data
                         this.editPersonalityStatus = this.editPersonalityStatusResponse? 'Личные данные успешно изменены':'Не удалось изменить личные данные'
-                        // this.getPersonality()
                     })
             },
             editStudent: function (event) {
@@ -309,7 +309,6 @@
                     .then(response=>{
                         this.editStudentStatusResponse = response.data
                         this.editStatus = this.editStudentStatusResponse? 'Данные студента успешно изменены':'Не удалось изменить данные студента'
-                        // this.getPersonality()
                     })
             },
             nullCheck: function (cat){

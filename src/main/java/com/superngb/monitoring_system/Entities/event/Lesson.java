@@ -1,12 +1,17 @@
 package com.superngb.monitoring_system.Entities.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Entities.mark.Attendance;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lessons")
 public class Lesson {
@@ -15,10 +20,17 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", referencedColumnName = "id")
-    private Event event;
+    @Column(name = "name")
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name="subjects_lessons",
+            joinColumns = {@JoinColumn(name="lesson_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")}
+    )
+    private Subject subject;
 
     @OneToMany(mappedBy = "lesson",fetch = FetchType.LAZY)
+//    @JsonIgnore
     private List<Attendance> attendanceList;
 }

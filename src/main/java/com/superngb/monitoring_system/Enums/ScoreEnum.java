@@ -1,6 +1,7 @@
 package com.superngb.monitoring_system.Enums;
 
 public enum ScoreEnum {
+    EMPTY("пусто"),
     TWO("неудовлетворительно"),
     THREE("удовлетворительно"),
     FOUR("хорошо"),

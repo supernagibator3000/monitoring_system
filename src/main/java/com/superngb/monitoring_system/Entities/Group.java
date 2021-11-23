@@ -1,12 +1,16 @@
 package com.superngb.monitoring_system.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.person.Student;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "groups")
 public class Group {
@@ -19,6 +23,7 @@ public class Group {
     private String name;
 
     @OneToMany(mappedBy = "group")
+//    @JsonIgnore
     private List<Student> students;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -26,5 +31,6 @@ public class Group {
             joinColumns = {@JoinColumn(name="group_id", referencedColumnName="id")},
             inverseJoinColumns = {@JoinColumn(name="subject_id", referencedColumnName="id")}
     )
+//    @JsonIgnore
     private List<Subject> subjects;
 }

@@ -1,6 +1,11 @@
 package com.superngb.monitoring_system.Controllers.AdminPanel;
 
 import com.superngb.monitoring_system.DTOs.GroupDtoModel;
+import com.superngb.monitoring_system.DTOs.SubjectDtoModel;
+import com.superngb.monitoring_system.DTOs.event.CheckpointDtoModel;
+import com.superngb.monitoring_system.DTOs.event.LessonDtoModel;
+import com.superngb.monitoring_system.DTOs.mark.AttendanceDtoModel;
+import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
 import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
@@ -171,7 +176,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
 
     @Override
     public boolean prepareSuccessEditTeacherView(TeacherDtoModel teacherDtoModel) {
-        return false;
+        return true;
     }
 
     @Override
@@ -193,4 +198,190 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     public List<TeacherDtoModel> convertTeachers(List<TeacherDtoModel> teacherDtoModels) {
         return teacherDtoModels;
     }
+
+    // Subjects
+
+    @Override
+    public boolean prepareSuccessPostSubjectView(SubjectDtoModel subjectDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailPostSubjectView() {
+        return false;
+    }
+
+    @Override
+    public boolean prepareSuccessEditSubjectView(SubjectDtoModel subjectDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditSubjectView(SubjectDtoModel subjectDtoModel) {
+        return false;
+    }
+
+    @Override
+    public SubjectDtoModel prepareDeletedSubjectView(SubjectDtoModel subjectDtoModel) {
+        return subjectDtoModel;
+    }
+
+    @Override
+    public SubjectDtoModel prepareFindedSubjectView(SubjectDtoModel subjectDtoModel) {
+        return subjectDtoModel;
+    }
+
+    @Override
+    public List<SubjectDtoModel> convertSubjects(List<SubjectDtoModel> subjectDtoModels) {
+        return subjectDtoModels;
+    }
+
+    // Checkpoints
+
+    @Override
+    public boolean prepareSuccessPostCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailPostCheckpointView() {
+        return false;
+    }
+
+    @Override
+    public boolean prepareSuccessEditCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+        return false;
+    }
+
+    @Override
+    public CheckpointDtoModel prepareDeletedCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+        return checkpointDtoModel;
+    }
+
+    @Override
+    public CheckpointDtoModel prepareFindedCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+        return checkpointDtoModel;
+    }
+
+    @Override
+    public List<CheckpointDtoModel> convertCheckpoints(List<CheckpointDtoModel> checkpointDtoModels) {
+        return checkpointDtoModels;
+    }
+
+    // Lessons
+
+    @Override
+    public boolean prepareSuccessPostLessonView(LessonDtoModel lessonDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailPostLessonView() {
+        return false;
+    }
+
+    @Override
+    public boolean prepareSuccessEditLessonView(LessonDtoModel lessonDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditLessonView(LessonDtoModel lessonDtoModel) {
+        return false;
+    }
+
+    @Override
+    public LessonDtoModel prepareDeletedLessonView(LessonDtoModel lessonDtoModel) {
+        return lessonDtoModel;
+    }
+
+    @Override
+    public LessonDtoModel prepareFindedLessonView(LessonDtoModel lessonDtoModel) {
+        return lessonDtoModel;
+    }
+
+    @Override
+    public List<LessonDtoModel> convertLessons(List<LessonDtoModel> lessonDtoModels) {
+        return lessonDtoModels;
+    }
+
+    // Attendance
+
+    @Override
+    public boolean prepareSuccessPostAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailPostAttendanceView() {
+        return false;
+    }
+
+    @Override
+    public boolean prepareSuccessEditAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+        return false;
+    }
+
+    @Override
+    public AttendanceDtoModel prepareDeletedAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+        return attendanceDtoModel;
+    }
+
+    @Override
+    public AttendanceDtoModel prepareFindedAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+        return attendanceDtoModel;
+    }
+
+    @Override
+    public List<AttendanceDtoModel> convertAttendances(List<AttendanceDtoModel> attendanceDtoModels) {
+        return attendanceDtoModels;
+    }
+
+    // Scores
+
+    @Override
+    public boolean prepareSuccessPostScoreView(ScoreDtoModel scoreDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailPostScoreView() {
+        return false;
+    }
+
+    @Override
+    public boolean prepareSuccessEditScoreView(ScoreDtoModel scoreDtoModel) {
+        return true;
+    }
+
+    @Override
+    public boolean prepareFailEditScoreView(ScoreDtoModel scoreDtoModel) {
+        return false;
+    }
+
+    @Override
+    public ScoreDtoModel prepareDeletedScoreView(ScoreDtoModel scoreDtoModel) {
+        return scoreDtoModel;
+    }
+
+    @Override
+    public ScoreDtoModel prepareFindedScoreView(ScoreDtoModel scoreDtoModel) {
+        return scoreDtoModel;
+    }
+
+    @Override
+    public List<ScoreDtoModel> convertScores(List<ScoreDtoModel> scoreDtoModels) {
+        return scoreDtoModels;
+    }
+
 }
