@@ -38,7 +38,7 @@ public class CheckpointDataAccessImpl implements AdminPanelCheckpointDataAccess 
         CriteriaQuery<Checkpoint> criteriaQuery = criteriaBuilder.createQuery(Checkpoint.class);
         Root<Checkpoint> checkpoint = criteriaQuery.from(Checkpoint.class);
 
-        Join<Checkpoint, Subject> subjectJoin = checkpoint.join("roles", JoinType.INNER);
+        Join<Checkpoint, Subject> subjectJoin = checkpoint.join("subject", JoinType.INNER);
 
         Predicate predicateForId = criteriaBuilder.equal(checkpoint.get("id"), id);
         Predicate predicateForName = criteriaBuilder.like(checkpoint.get("name"), name);
@@ -55,7 +55,7 @@ public class CheckpointDataAccessImpl implements AdminPanelCheckpointDataAccess 
             else
                 predicate = predicateForSubject;
         }
-        if(name.equals("")){
+        if(!name.equals("")){
             if (predicate != null)
                 predicate = criteriaBuilder.and(predicate,predicateForName);
             else

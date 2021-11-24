@@ -14,6 +14,7 @@
 
     <h2>Предмет: {{subject.name}}</h2>
     <h5 v-if="editStatusResponse != null">{{editStatus}}</h5>
+    <h5 v-if="addStatusResponse != null">{{addStatus}}</h5>
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
@@ -37,6 +38,10 @@
 
 
     <h4>Лекции</h4>
+    <form v-on:submit.prevent="addLessonToSubject">
+        <input type="text" v-model="lesson_name" name="lesson_name" placeholder="Название лекции"/>
+        <input type="submit" class="btn btn-primary addLessonToSubject" value="Добавить">
+    </form>
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
@@ -52,6 +57,10 @@
     </table>
 
     <h4>Оцениваемые работы</h4>
+    <form v-on:submit.prevent="addCheckpointToSubject">
+        <input type="text" v-model="checkpoint_name" name="checkpoint_name" placeholder="Название работы"/>
+        <input type="submit" class="btn btn-primary addCheckpointToSubject" value="Добавить">
+    </form>
     <table class="table table-bordered">
         <thead>
         <th scope="col">ID</th>
@@ -67,7 +76,6 @@
     </table>
 
     <h4>Преподаватели</h4>
-    <h5 v-if="addTeacherStatusResponse != null">{{addTeacherStatus}}</h5>
     <form v-on:submit.prevent="addTeacherToSubject">
         <input type="number" v-model="teacher_id" name="teacherId" placeholder="ID преподавателя"/>
         <input type="submit" class="btn btn-primary addTeacherToSubject" value="Добавить">
@@ -92,7 +100,6 @@
     </table>
 
     <h4>Группы</h4>
-    <h5 v-if="addGroupStatusResponse != null">{{addGroupStatus}}</h5>
     <form v-on:submit.prevent="addGroupToSubject">
         <input type="number" v-model="group_id" name="groupId" placeholder="ID группы"/>
         <input type="submit" class="btn btn-primary addGroupToSubject" value="Добавить">
@@ -128,11 +135,8 @@
     window.app = new Vue({
         el: '#app',
         data: {
-            addGroupStatus:'',
-            addGroupStatusResponse: null,
-
-            addTeacherStatus:'',
-            addTeacherStatusResponse: null,
+            addStatus:'',
+            addStatusResponse: null,
 
             editStatus:'',
             editStatusResponse: null,
@@ -148,7 +152,10 @@
             name:'',
 
             teacher_id: null,
-            group_id: null
+            group_id: null,
+
+            lesson_name: '',
+            checkpoint_name: ''
         },
         async mounted(){
             await this.getSubject()
@@ -159,8 +166,8 @@
                     "groups": [this.group_id]
                 })
                     .then(response=>{
-                        this.addGroupStatusResponse = response.data
-                        this.addGroupStatus = this.addGroupStatusResponse? 'Группа успешно добавлена':'Не удалось добавить группу'
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Группа успешно добавлена':'Не удалось добавить группу'
                         // this.getGroup()
                     })
             },
@@ -169,8 +176,30 @@
                     "teachers": [this.teacher_id]
                 })
                     .then(response=>{
-                        this.addTeacherStatusResponse = response.data
-                        this.addTeacherStatus = this.addTeacherStatusResponse? 'Преподаватель успешно добавлен':'Не удалось добавить преподавателя'
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Преподаватель успешно добавлен':'Не удалось добавить преподавателя'
+                        // this.getGroup()
+                    })
+            },
+            addLessonToSubject: function () {
+                axios.post(`/admin/addLesson`,{
+                    "name": this.lesson_name,
+                    "subjectId": this.id
+                })
+                    .then(response=>{
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Лекция успешно добавлена':'Не удалось добавить лекцию'
+                        // this.getGroup()
+                    })
+            },
+            addCheckpointToSubject: function () {
+                axios.post(`/admin/addCheckpoint`,{
+                    "name": this.checkpoint_name,
+                    "subjectId": this.id
+                })
+                    .then(response=>{
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Работа успешно добавлен':'Не удалось добавить работу'
                         // this.getGroup()
                     })
             },

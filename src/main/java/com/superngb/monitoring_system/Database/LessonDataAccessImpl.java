@@ -38,7 +38,7 @@ public class LessonDataAccessImpl implements AdminPanelLessonDataAccess {
         CriteriaQuery<Lesson> criteriaQuery = criteriaBuilder.createQuery(Lesson.class);
         Root<Lesson> lesson = criteriaQuery.from(Lesson.class);
 
-        Join<Lesson, Subject> subjectJoin = lesson.join("roles", JoinType.INNER);
+        Join<Lesson, Subject> subjectJoin = lesson.join("subject", JoinType.INNER);
 
         Predicate predicateForId = criteriaBuilder.equal(lesson.get("id"), id);
         Predicate predicateForName = criteriaBuilder.like(lesson.get("name"), name);
@@ -55,7 +55,7 @@ public class LessonDataAccessImpl implements AdminPanelLessonDataAccess {
             else
                 predicate = predicateForSubject;
         }
-        if(name.equals("")){
+        if(!name.equals("")){
             if (predicate != null)
                 predicate = criteriaBuilder.and(predicate,predicateForName);
             else

@@ -560,7 +560,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
         if (subject == null)
             return adminPanelOutputBoundary.prepareFailEditSubjectView(SubjectDtoModel.subjectMapper(subject));
 
-        if (!subjectEditRequestModel.getName().equals("")){
+        if (subjectEditRequestModel.getName() != null && !subjectEditRequestModel.getName().equals("")){
             subject.setName(subjectEditRequestModel.getName());
         }
 
@@ -718,6 +718,13 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
 
         adminPanelCheckpointDataAccess.save(checkpoint);
 
+        List<Group> groupList = subjectById.getGroups();
+        for (Group group: groupList){
+            for (Student student: group.getStudents()){
+                createScore(new ScorePostRequestModel(student.getId(), "", checkpoint.getId()));
+            }
+        }
+
         return adminPanelOutputBoundary.prepareSuccessPostCheckpointView(CheckpointDtoModel.checkpointMapper(checkpoint));
     }
 
@@ -804,6 +811,13 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
 
         adminPanelLessonDataAccess.save(lesson);
 
+        List<Group> groupList = subjectById.getGroups();
+        for (Group group: groupList){
+            for (Student student: group.getStudents()){
+                createAttendance(new AttendancePostRequestModel(student.getId(), "", lesson.getId()));
+            }
+        }
+
         return adminPanelOutputBoundary.prepareSuccessPostLessonView(LessonDtoModel.lessonMapper(lesson));
     }
 
@@ -812,6 +826,13 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     @Override
     public List<AttendanceDtoModel> getAttendance() {
         List<Attendance> attendanceList = adminPanelAttendanceDataAccess.getAll();
+        List<AttendanceDtoModel> attendanceDtoModelList = AttendanceDtoModel.listAttendanceMapper(attendanceList);
+        return adminPanelOutputBoundary.convertAttendances(attendanceDtoModelList);
+    }
+
+    @Override
+    public List<AttendanceDtoModel> findAttendanceByLesson(Long lessonId) {
+        List<Attendance> attendanceList = adminPanelAttendanceDataAccess.findAllByLessonId(lessonId);
         List<AttendanceDtoModel> attendanceDtoModelList = AttendanceDtoModel.listAttendanceMapper(attendanceList);
         return adminPanelOutputBoundary.convertAttendances(attendanceDtoModelList);
     }
@@ -909,6 +930,13 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     @Override
     public List<ScoreDtoModel> getScores() {
         List<Score> scoreList = adminPanelScoreDataAccess.getAll();
+        List<ScoreDtoModel> scoreDtoModelList = ScoreDtoModel.listScoresMapper(scoreList);
+        return adminPanelOutputBoundary.convertScores(scoreDtoModelList);
+    }
+
+    @Override
+    public List<ScoreDtoModel> findScoresByCheckpoint(Long checkpointId) {
+        List<Score> scoreList = adminPanelScoreDataAccess.findAllByLessonId(checkpointId);
         List<ScoreDtoModel> scoreDtoModelList = ScoreDtoModel.listScoresMapper(scoreList);
         return adminPanelOutputBoundary.convertScores(scoreDtoModelList);
     }

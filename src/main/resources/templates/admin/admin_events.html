@@ -14,7 +14,7 @@
 
     <form v-on:submit.prevent="findEvents">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
-        <input type="number" v-model="name" name="name" placeholder="Название работы"/>
+        <input type="text" v-model="name" name="name" placeholder="Название работы"/>
         <input type="number" v-model="subject_id" name="subjectId" placeholder="ID предмета"/>
         <input type="submit" class="btn btn-primary findEvents" value="Найти">
     </form>
@@ -33,18 +33,6 @@
             <td>{{lesson.subject}}</td>
             <td>
                 <form v-on:submit.prevent="showSubject(lesson)">
-                    <input type="submit" class="btn btn-primary showSubject" value="Предмет">
-                </form>
-            </td>
-        </tr>
-        </tbody>
-        <tbody>
-        <tr v-for="checkpoint in this.checkpoints">
-            <td>{{checkpoint.id}}</td>
-            <td>{{checkpoint.name}}</td>
-            <td>{{checkpoint.subject}}</td>
-            <td>
-                <form v-on:submit.prevent="showSubject(checkpoint)">
                     <input type="submit" class="btn btn-primary showSubject" value="Предмет">
                 </form>
             </td>

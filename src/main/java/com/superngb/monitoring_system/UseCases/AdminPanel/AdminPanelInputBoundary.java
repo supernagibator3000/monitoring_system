@@ -84,6 +84,7 @@ public interface AdminPanelInputBoundary extends UserDetailsService {
     boolean createLesson(LessonPostRequestModel lessonPostRequestModel);
 
     List<AttendanceDtoModel> getAttendance();
+    List<AttendanceDtoModel> findAttendanceByLesson(Long lessonId);
     AttendanceDtoModel findAttendance(Long id);
     boolean editAttendance(Long id, AttendanceEditRequestModel attendanceEditRequestModel);
     List<AttendanceDtoModel> filterAttendance(AttendanceFilterRequestModel attendanceFilterRequestModel);
@@ -91,6 +92,7 @@ public interface AdminPanelInputBoundary extends UserDetailsService {
     boolean createAttendance(AttendancePostRequestModel attendancePostRequestModel);
 
     List<ScoreDtoModel> getScores();
+    List<ScoreDtoModel> findScoresByCheckpoint(Long checkpointId);
     ScoreDtoModel findScore(Long id);
     boolean editScore(Long id, ScoreEditRequestModel scoreEditRequestModel);
     List<ScoreDtoModel> filterScores(ScoreFilterRequestModel scoreFilterRequestModel);
