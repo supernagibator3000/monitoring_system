@@ -4,7 +4,7 @@ import com.superngb.monitoring_system.Entities.event.Lesson;
 import com.superngb.monitoring_system.Entities.mark.Attendance;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Repositories.mark.AttendanceRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelAttendanceDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelAttendanceDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

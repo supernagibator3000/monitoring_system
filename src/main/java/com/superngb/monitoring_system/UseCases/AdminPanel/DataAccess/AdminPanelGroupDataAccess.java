@@ -1,4 +1,4 @@
-package com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces;
+package com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess;
 
 import com.superngb.monitoring_system.Entities.Group;
 

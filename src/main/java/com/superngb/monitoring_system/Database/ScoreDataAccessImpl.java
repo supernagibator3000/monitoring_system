@@ -4,7 +4,7 @@ import com.superngb.monitoring_system.Entities.event.Checkpoint;
 import com.superngb.monitoring_system.Entities.mark.Score;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Repositories.mark.ScoreRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelScoreDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelScoreDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

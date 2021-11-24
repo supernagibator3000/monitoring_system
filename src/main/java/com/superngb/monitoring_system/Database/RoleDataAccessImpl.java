@@ -2,7 +2,7 @@ package com.superngb.monitoring_system.Database;
 
 import com.superngb.monitoring_system.Entities.Role;
 import com.superngb.monitoring_system.Repositories.RoleRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelRoleDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelRoleDataAccess;
 
 public class RoleDataAccessImpl implements AdminPanelRoleDataAccess {
 

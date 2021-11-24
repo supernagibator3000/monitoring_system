@@ -1,6 +1,5 @@
-package com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces;
+package com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess;
 
-import com.superngb.monitoring_system.Entities.Group;
 import com.superngb.monitoring_system.Entities.Subject;
 
 import java.util.List;

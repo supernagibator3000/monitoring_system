@@ -3,7 +3,7 @@ package com.superngb.monitoring_system.Database;
 import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Entities.event.Lesson;
 import com.superngb.monitoring_system.Repositories.event.LessonRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelLessonDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelLessonDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

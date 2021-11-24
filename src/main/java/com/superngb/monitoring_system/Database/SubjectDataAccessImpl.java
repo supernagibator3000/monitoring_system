@@ -1,10 +1,8 @@
 package com.superngb.monitoring_system.Database;
 
-import com.superngb.monitoring_system.Entities.Group;
 import com.superngb.monitoring_system.Entities.Subject;
-import com.superngb.monitoring_system.Entities.person.Teacher;
 import com.superngb.monitoring_system.Repositories.SubjectRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelSubjectDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelSubjectDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

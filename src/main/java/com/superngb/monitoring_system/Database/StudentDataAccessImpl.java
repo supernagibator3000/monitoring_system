@@ -3,9 +3,8 @@ package com.superngb.monitoring_system.Database;
 import com.superngb.monitoring_system.Entities.Group;
 import com.superngb.monitoring_system.Entities.person.Personality;
 import com.superngb.monitoring_system.Entities.person.Student;
-import com.superngb.monitoring_system.Entities.person.User;
 import com.superngb.monitoring_system.Repositories.person.StudentRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelStudentDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelStudentDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

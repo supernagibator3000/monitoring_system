@@ -24,7 +24,7 @@ import com.superngb.monitoring_system.Entities.person.User;
 import com.superngb.monitoring_system.Enums.AttendanceEnum;
 import com.superngb.monitoring_system.Enums.RoleEnum;
 import com.superngb.monitoring_system.Enums.ScoreEnum;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.*;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.*;
 import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

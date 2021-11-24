@@ -5,7 +5,7 @@ import com.superngb.monitoring_system.Entities.person.Personality;
 import com.superngb.monitoring_system.Entities.person.User;
 import com.superngb.monitoring_system.Enums.RoleEnum;
 import com.superngb.monitoring_system.Repositories.person.UserRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelUserDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelUserDataAccess;
 import com.superngb.monitoring_system.UseCases.UserAuthorization.UserAuthorizationUserDataAccess;
 
 import javax.persistence.EntityManager;

@@ -3,7 +3,7 @@ package com.superngb.monitoring_system.Database;
 import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Entities.event.Checkpoint;
 import com.superngb.monitoring_system.Repositories.event.CheckpointRepository;
-import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccessInterfaces.AdminPanelCheckpointDataAccess;
+import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelCheckpointDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
