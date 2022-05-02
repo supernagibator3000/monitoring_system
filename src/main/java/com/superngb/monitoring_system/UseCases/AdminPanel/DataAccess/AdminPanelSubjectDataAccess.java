@@ -9,7 +9,6 @@ public interface AdminPanelSubjectDataAccess {
     List<Subject> filter(Long id, String name);
     Subject findById(Long id);
     Subject findByName(String name);
-//    List<Subject> findAllByGroups(List<Group> groups);
     void save(Subject subject);
     Subject deleteById(Long id);
 }

@@ -74,11 +74,6 @@ public class SubjectDataAccessImpl implements AdminPanelSubjectDataAccess {
         return subjectRepository.findByName(name);
     }
 
-//    @Override
-//    public List<Subject> findAllByGroups(List<Group> groups) {
-//        return subjectRepository.findAllByGroups(groups);
-//    }
-
     @Override
     public void save(Subject subject) {
         subjectRepository.save(subject);

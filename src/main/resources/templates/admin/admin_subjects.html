@@ -21,8 +21,6 @@
     <form v-on:submit.prevent="findSubjects">
         <input type="number" v-model="id" name="id" placeholder="ID"/>
         <input type="text" v-model="name" name="name" placeholder="Название предмета"/>
-<!--        <input type="number" v-model="group_id" name="groupId" placeholder="ID группы"/>-->
-<!--        <input type="number" v-model="teacher_id" name="teacherId" placeholder="ID преподавателя"/>-->
         <input type="submit" class="btn btn-primary findSubjects" value="Найти">
     </form>
 
@@ -30,20 +28,12 @@
         <thead>
         <th scope="col">ID</th>
         <th scope="col">Название предмета</th>
-<!--        <th scope="col">ID групп</th>-->
-<!--        <th scope="col">ID преподавателей</th>-->
         <th scope="col"></th>
         </thead>
         <tbody>
         <tr v-for="subject in this.subjects">
             <td>{{subject.id}}</td>
             <td>{{subject.name}}</td>
-<!--            <td v-for="group in subject.groups">-->
-<!--                <a>{{group}} </a>-->
-<!--            </td>-->
-<!--            <td v-for="teacher in subject.teachers">-->
-<!--                <a>{{teacher}} </a>-->
-<!--            </td>-->
             <td>
                 <form v-on:submit.prevent="showSubject(subject)">
                     <input type="submit" class="btn btn-primary showSubject" value="Подробнее">
@@ -98,10 +88,6 @@
                         this.subjects = response.data
                         console.log(this.subjects)
                     })
-            },
-            nullCheck: function (cat){
-                if (cat === null || cat ===false) return ""
-                else return cat
             },
             showSubject: function (subject) {
                 location.href = `/admin/subjects/${subject.id}`
