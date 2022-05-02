@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class SubjectDataAccessImpl implements AdminPanelSubjectDataAccess {
 
-    private SubjectRepository subjectRepository;
+    private final SubjectRepository subjectRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

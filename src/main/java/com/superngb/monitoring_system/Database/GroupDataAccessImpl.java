@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class GroupDataAccessImpl implements AdminPanelGroupDataAccess {
 
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

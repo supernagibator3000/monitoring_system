@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ScoreDataAccessImpl implements AdminPanelScoreDataAccess {
 
-    private ScoreRepository scoreRepository;
+    private final ScoreRepository scoreRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class LessonDataAccessImpl implements AdminPanelLessonDataAccess {
 
-    private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

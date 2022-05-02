@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class PersonalityDataAccessImpl implements AdminPanelPersonalityDataAccess {
 
-    PersonalityRepository personalityRepository;
+    private final PersonalityRepository personalityRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

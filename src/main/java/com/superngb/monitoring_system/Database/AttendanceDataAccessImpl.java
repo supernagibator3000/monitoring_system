@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class AttendanceDataAccessImpl implements AdminPanelAttendanceDataAccess {
 
-    private AttendanceRepository attendanceRepository;
+    private final AttendanceRepository attendanceRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

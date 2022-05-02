@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class CheckpointDataAccessImpl implements AdminPanelCheckpointDataAccess {
 
-    private CheckpointRepository checkpointRepository;
+    private final CheckpointRepository checkpointRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
