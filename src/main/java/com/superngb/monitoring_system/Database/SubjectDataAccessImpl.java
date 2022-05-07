@@ -3,6 +3,7 @@ package com.superngb.monitoring_system.Database;
 import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Repositories.SubjectRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelSubjectDataAccess;
+import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.TeacherSubjectDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SubjectDataAccessImpl implements AdminPanelSubjectDataAccess {
+public class SubjectDataAccessImpl implements AdminPanelSubjectDataAccess, TeacherSubjectDataAccess {
 
     private final SubjectRepository subjectRepository;
 

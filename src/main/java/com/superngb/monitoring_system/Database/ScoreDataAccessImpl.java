@@ -5,6 +5,7 @@ import com.superngb.monitoring_system.Entities.mark.Score;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Repositories.mark.ScoreRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelScoreDataAccess;
+import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.TeacherScoreDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ScoreDataAccessImpl implements AdminPanelScoreDataAccess {
+public class ScoreDataAccessImpl implements AdminPanelScoreDataAccess, TeacherScoreDataAccess {
 
     private final ScoreRepository scoreRepository;
 

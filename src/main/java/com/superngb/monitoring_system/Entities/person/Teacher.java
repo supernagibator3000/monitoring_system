@@ -1,6 +1,5 @@
 package com.superngb.monitoring_system.Entities.person;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.superngb.monitoring_system.Entities.Subject;
 import lombok.*;
 

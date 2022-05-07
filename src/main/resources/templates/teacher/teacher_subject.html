@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="general.html :: headers"></th:block>
+    <title>Teacher Subject Page</title>
+</head>
+<body>
+<h1>Вы находитесь в окне администратора: Предметы</h1>
+<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/teacher/subjects">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
+
+    <h2>Предмет: {{subject.name}}</h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название предмета</th>
+        </thead>
+        <tr>
+            <td>{{subject.id}}</td>
+            <td>{{subject.name}}</td>
+        </tr>
+    </table>
+
+    <h4>Лекции</h4>
+    <form v-on:submit.prevent="addLessonToSubject">
+        <input type="text" v-model="lesson_name" name="lesson_name" placeholder="Название лекции"/>
+        <input type="submit" class="btn btn-primary addLessonToSubject" value="Добавить">
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название лекции</th>
+        </thead>
+        <tbody>
+        <tr v-for="lesson in this.lessons">
+            <td>{{lesson.id}}</td>
+            <td>{{lesson.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Оцениваемые работы</h4>
+    <form v-on:submit.prevent="addCheckpointToSubject">
+        <input type="text" v-model="checkpoint_name" name="checkpoint_name" placeholder="Название работы"/>
+        <input type="submit" class="btn btn-primary addCheckpointToSubject" value="Добавить">
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название работы</th>
+        </thead>
+        <tbody>
+        <tr v-for="checkpoint in this.checkpoints">
+            <td>{{checkpoint.id}}</td>
+            <td>{{checkpoint.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Группы</h4>
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Название группы</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="group in this.groups">
+            <td>{{group.id}}</td>
+            <td>{{group.name}}</td>
+            <td>
+                <form v-on:submit.prevent="showMarks(group)">
+                    <input type="submit" class="btn btn-primary showMarks" value="Оценки">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            addStatus:'',
+            addStatusResponse: null,
+
+            id: window.location.href.split("/").slice(-1)[0],
+
+            lessons: [],
+            checkpoints: [],
+            groups: [],
+
+            subject: null,
+
+            lesson_name: '',
+            checkpoint_name: ''
+        },
+        async mounted(){
+            await this.getSubject()
+        },
+        methods: {
+            addLessonToSubject: function () {
+                axios.post(`/teacher/addLesson`,{
+                    "name": this.lesson_name,
+                    "subjectId": this.id
+                })
+                    .then(response=>{
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Лекция успешно добавлена':'Не удалось добавить лекцию'
+                        // this.getGroup()
+                    })
+            },
+            addCheckpointToSubject: function () {
+                axios.post(`/teacher/addCheckpoint`,{
+                    "name": this.checkpoint_name,
+                    "subjectId": this.id
+                })
+                    .then(response=>{
+                        this.addStatusResponse = response.data
+                        this.addStatus = this.addStatusResponse? 'Работа успешно добавлен':'Не удалось добавить работу'
+                        // this.getGroup()
+                    })
+            },
+            getSubject: function (event){
+                axios.get(`/teacher/subject/${this.id}`)
+                    .then(response=>{
+                        this.subject = response.data
+                        console.log(this.subject)
+
+                        this.getLessons()
+                        this.getCheckpoints()
+                        this.getGroups()
+                    })
+            },
+            getLessons: function (){
+                for (let lesson of this.subject.lessons)
+                    axios.get(`/teacher/lesson/${lesson}`)
+                        .then(response=>{
+                            this.lessons.push(response.data)
+                        })
+                console.log(this.lessons)
+            },
+            getCheckpoints: function (){
+                for (let checkpoint of this.subject.checkpoints)
+                    axios.get(`/teacher/checkpoint/${checkpoint}`)
+                        .then(response=>{
+                            this.checkpoints.push(response.data)
+                        })
+                console.log(this.checkpoints)
+            },
+            getGroups: function (){
+                for (let group of this.subject.groups)
+                    axios.get(`/teacher/group/${group}`)
+                        .then(response=>{
+                            this.groups.push(response.data)
+                        })
+                console.log(this.groups)
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showMarks: function (group) {
+                location.href = `/teacher/subject/${this.id}/group/${group.id}`
+            }
+        }
+    })
+</script>
+</body>
+</html>

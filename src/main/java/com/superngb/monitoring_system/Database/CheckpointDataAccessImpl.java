@@ -4,6 +4,7 @@ import com.superngb.monitoring_system.Entities.Subject;
 import com.superngb.monitoring_system.Entities.event.Checkpoint;
 import com.superngb.monitoring_system.Repositories.event.CheckpointRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelCheckpointDataAccess;
+import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.TeacherCheckpointDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CheckpointDataAccessImpl implements AdminPanelCheckpointDataAccess {
+public class CheckpointDataAccessImpl implements AdminPanelCheckpointDataAccess, TeacherCheckpointDataAccess {
 
     private final CheckpointRepository checkpointRepository;
 

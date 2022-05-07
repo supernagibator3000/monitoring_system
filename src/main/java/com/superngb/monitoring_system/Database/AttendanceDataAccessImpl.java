@@ -5,6 +5,7 @@ import com.superngb.monitoring_system.Entities.mark.Attendance;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Repositories.mark.AttendanceRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelAttendanceDataAccess;
+import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.TeacherAttendanceDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AttendanceDataAccessImpl implements AdminPanelAttendanceDataAccess {
+public class AttendanceDataAccessImpl implements AdminPanelAttendanceDataAccess, TeacherAttendanceDataAccess {
 
     private final AttendanceRepository attendanceRepository;
 

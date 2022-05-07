@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="general.html :: headers"></th:block>
+    <title>Teacher Subjects Page</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div id="app">
+
+    <form v-on:submit.prevent="findSubjects">
+        <input type="text" v-model="name" name="name" placeholder="Название предмета"/>
+        <input type="submit" class="btn btn-primary findSubjects" value="Найти">
+    </form>
+
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">Название предмета</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr v-for="subject in this.subjects">
+            <td>{{subject.name}}</td>
+            <td>
+                <form v-on:submit.prevent="showSubject(subject)">
+                    <input type="submit" class="btn btn-primary showSubject" value="Подробнее">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            id: null,
+            name:'',
+            subjects: []
+        },
+        async mounted(){
+            await this.getSubjects()
+        },
+        methods: {
+            getSubjects: function (event){
+                axios.get(`/admin/allSubjects`)
+                    .then(response=>{
+                        this.subjects = response.data
+                        console.log(this.subjects)
+                    })
+            },
+            findSubjects: function (event) {
+                axios.post(`/admin/filterSubjects`,{
+                    "id": this.id,
+                    "name": this.name
+                })
+                    .then(response=>{
+                        this.subjects = response.data
+                        console.log(this.subjects)
+                    })
+            },
+            nullCheck: function (cat){
+                if (cat === null || cat ===false) return ""
+                else return cat
+            },
+            showSubject: function (subject) {
+                location.href = `/teacher/subjects/${subject.id}`
+            }
+        }
+    })
+</script>
+</body>
+</html>

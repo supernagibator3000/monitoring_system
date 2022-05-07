@@ -5,6 +5,7 @@ import com.superngb.monitoring_system.Entities.person.Personality;
 import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Repositories.person.StudentRepository;
 import com.superngb.monitoring_system.UseCases.AdminPanel.DataAccess.AdminPanelStudentDataAccess;
+import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.TeacherStudentDataAccess;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StudentDataAccessImpl implements AdminPanelStudentDataAccess {
+public class StudentDataAccessImpl implements AdminPanelStudentDataAccess, TeacherStudentDataAccess {
 
     private final StudentRepository studentRepository;
 
