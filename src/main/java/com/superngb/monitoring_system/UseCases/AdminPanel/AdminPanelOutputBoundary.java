@@ -19,7 +19,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditUserView(UserDtoModel userDtoModel);
     boolean prepareFailEditUserView(UserDtoModel userDtoModel);
     UserDtoModel prepareDeletedUserView(UserDtoModel userDtoModel);
-    UserDtoModel prepareFindedUserView(UserDtoModel userDtoModel);
+    UserDtoModel prepareFoundUserView(UserDtoModel userDtoModel);
     List<UserDtoModel> convertUsers(List<UserDtoModel> users);
 
     boolean prepareSuccessPostPersonalityView(PersonalityDtoModel personalityDtoModel);
@@ -27,7 +27,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditPersonalityView(PersonalityDtoModel personalityDtoModel);
     boolean prepareFailEditPersonalityView(PersonalityDtoModel personalityDtoModel);
     PersonalityDtoModel prepareDeletedPersonalityView(PersonalityDtoModel personalityDtoModel);
-    PersonalityDtoModel prepareFindedPersonalityView(PersonalityDtoModel personalityDtoModel);
+    PersonalityDtoModel prepareFoundPersonalityView(PersonalityDtoModel personalityDtoModel);
     List<PersonalityDtoModel> convertPersonalities(List<PersonalityDtoModel> personalityDtoModels);
 
     boolean prepareSuccessPostGroupView(GroupDtoModel groupDtoModel);
@@ -35,7 +35,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditGroupView(GroupDtoModel groupDtoModel);
     boolean prepareFailEditGroupView(GroupDtoModel groupDtoModel);
     GroupDtoModel prepareDeletedGroupView(GroupDtoModel groupDtoModel);
-    GroupDtoModel prepareFindedGroupView(GroupDtoModel groupDtoModel);
+    GroupDtoModel prepareFoundGroupView(GroupDtoModel groupDtoModel);
     List<GroupDtoModel> convertGroups(List<GroupDtoModel> groupDtoModels);
 
     boolean prepareSuccessPostStudentView(StudentDtoModel studentDtoModel);
@@ -43,7 +43,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditStudentView(StudentDtoModel studentDtoModel);
     boolean prepareFailEditStudentView(StudentDtoModel studentDtoModel);
     StudentDtoModel prepareDeletedStudentView(StudentDtoModel studentDtoModel);
-    StudentDtoModel prepareFindedStudentView(StudentDtoModel studentDtoModel);
+    StudentDtoModel prepareFoundStudentView(StudentDtoModel studentDtoModel);
     List<StudentDtoModel> convertStudents(List<StudentDtoModel> studentDtoModels);
 
     boolean prepareSuccessPostTeacherView(TeacherDtoModel teacherDtoModel);
@@ -51,7 +51,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditTeacherView(TeacherDtoModel teacherDtoModel);
     boolean prepareFailEditTeacherView(TeacherDtoModel teacherDtoModel);
     TeacherDtoModel prepareDeletedTeacherView(TeacherDtoModel teacherDtoModel);
-    TeacherDtoModel prepareFindedTeacherView(TeacherDtoModel teacherDtoModel);
+    TeacherDtoModel prepareFoundTeacherView(TeacherDtoModel teacherDtoModel);
     List<TeacherDtoModel> convertTeachers(List<TeacherDtoModel> teacherDtoModels);
 
     boolean prepareSuccessPostSubjectView(SubjectDtoModel subjectDtoModel);
@@ -59,7 +59,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditSubjectView(SubjectDtoModel subjectDtoModel);
     boolean prepareFailEditSubjectView(SubjectDtoModel subjectDtoModel);
     SubjectDtoModel prepareDeletedSubjectView(SubjectDtoModel subjectDtoModel);
-    SubjectDtoModel prepareFindedSubjectView(SubjectDtoModel subjectDtoModel);
+    SubjectDtoModel prepareFoundSubjectView(SubjectDtoModel subjectDtoModel);
     List<SubjectDtoModel> convertSubjects(List<SubjectDtoModel> subjectDtoModels);
 
     boolean prepareSuccessPostCheckpointView(CheckpointDtoModel checkpointDtoModel);
@@ -67,7 +67,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditCheckpointView(CheckpointDtoModel checkpointDtoModel);
     boolean prepareFailEditCheckpointView(CheckpointDtoModel checkpointDtoModel);
     CheckpointDtoModel prepareDeletedCheckpointView(CheckpointDtoModel checkpointDtoModel);
-    CheckpointDtoModel prepareFindedCheckpointView(CheckpointDtoModel checkpointDtoModel);
+    CheckpointDtoModel prepareFoundCheckpointView(CheckpointDtoModel checkpointDtoModel);
     List<CheckpointDtoModel> convertCheckpoints(List<CheckpointDtoModel> checkpointDtoModels);
 
     boolean prepareSuccessPostLessonView(LessonDtoModel lessonDtoModel);
@@ -75,7 +75,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditLessonView(LessonDtoModel lessonDtoModel);
     boolean prepareFailEditLessonView(LessonDtoModel lessonDtoModel);
     LessonDtoModel prepareDeletedLessonView(LessonDtoModel lessonDtoModel);
-    LessonDtoModel prepareFindedLessonView(LessonDtoModel lessonDtoModel);
+    LessonDtoModel prepareFoundLessonView(LessonDtoModel lessonDtoModel);
     List<LessonDtoModel> convertLessons(List<LessonDtoModel> lessonDtoModels);
 
     boolean prepareSuccessPostAttendanceView(AttendanceDtoModel attendanceDtoModel);
@@ -83,7 +83,7 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditAttendanceView(AttendanceDtoModel attendanceDtoModel);
     boolean prepareFailEditAttendanceView(AttendanceDtoModel attendanceDtoModel);
     AttendanceDtoModel prepareDeletedAttendanceView(AttendanceDtoModel attendanceDtoModel);
-    AttendanceDtoModel prepareFindedAttendanceView(AttendanceDtoModel attendanceDtoModel);
+    AttendanceDtoModel prepareFoundAttendanceView(AttendanceDtoModel attendanceDtoModel);
     List<AttendanceDtoModel> convertAttendances(List<AttendanceDtoModel> attendanceDtoModels);
 
     boolean prepareSuccessPostScoreView(ScoreDtoModel scoreDtoModel);
@@ -91,6 +91,6 @@ public interface AdminPanelOutputBoundary {
     boolean prepareSuccessEditScoreView(ScoreDtoModel scoreDtoModel);
     boolean prepareFailEditScoreView(ScoreDtoModel scoreDtoModel);
     ScoreDtoModel prepareDeletedScoreView(ScoreDtoModel scoreDtoModel);
-    ScoreDtoModel prepareFindedScoreView(ScoreDtoModel scoreDtoModel);
+    ScoreDtoModel prepareFoundScoreView(ScoreDtoModel scoreDtoModel);
     List<ScoreDtoModel> convertScores(List<ScoreDtoModel> scoreDtoModels);
 }

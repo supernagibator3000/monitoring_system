@@ -39,19 +39,19 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private AdminPanelUserDataAccess adminPanelUserDataAccess;
-    private AdminPanelRoleDataAccess adminPanelRoleDataAccess;
-    private AdminPanelPersonalityDataAccess adminPanelPersonalityDataAccess;
-    private AdminPanelGroupDataAccess adminPanelGroupDataAccess;
-    private AdminPanelStudentDataAccess adminPanelStudentDataAccess;
-    private AdminPanelTeacherDataAccess adminPanelTeacherDataAccess;
-    private AdminPanelSubjectDataAccess adminPanelSubjectDataAccess;
-    private AdminPanelCheckpointDataAccess adminPanelCheckpointDataAccess;
-    private AdminPanelLessonDataAccess adminPanelLessonDataAccess;
-    private AdminPanelScoreDataAccess adminPanelScoreDataAccess;
-    private AdminPanelAttendanceDataAccess adminPanelAttendanceDataAccess;
+    private final AdminPanelUserDataAccess adminPanelUserDataAccess;
+    private final AdminPanelRoleDataAccess adminPanelRoleDataAccess;
+    private final AdminPanelPersonalityDataAccess adminPanelPersonalityDataAccess;
+    private final AdminPanelGroupDataAccess adminPanelGroupDataAccess;
+    private final AdminPanelStudentDataAccess adminPanelStudentDataAccess;
+    private final AdminPanelTeacherDataAccess adminPanelTeacherDataAccess;
+    private final AdminPanelSubjectDataAccess adminPanelSubjectDataAccess;
+    private final AdminPanelCheckpointDataAccess adminPanelCheckpointDataAccess;
+    private final AdminPanelLessonDataAccess adminPanelLessonDataAccess;
+    private final AdminPanelScoreDataAccess adminPanelScoreDataAccess;
+    private final AdminPanelAttendanceDataAccess adminPanelAttendanceDataAccess;
 
-    private AdminPanelOutputBoundary adminPanelOutputBoundary;
+    private final AdminPanelOutputBoundary adminPanelOutputBoundary;
 
     public AdminPanelInteractor(AdminPanelUserDataAccess adminPanelUserDataAccess,
                                 AdminPanelRoleDataAccess adminPanelRoleDataAccess,
@@ -104,14 +104,14 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public UserDtoModel findUser(Long id) {
         User user = adminPanelUserDataAccess.findById(id);
         UserDtoModel userDtoModel = UserDtoModel.userMapper(user);
-        return adminPanelOutputBoundary.prepareFindedUserView(userDtoModel);
+        return adminPanelOutputBoundary.prepareFoundUserView(userDtoModel);
     }
 
     @Override
     public UserDtoModel findUserByPersonality(Long id) {
         User user = adminPanelUserDataAccess.findByPersonalityId(id);
         UserDtoModel userDtoModel = UserDtoModel.userMapper(user);
-        return adminPanelOutputBoundary.prepareFindedUserView(userDtoModel);
+        return adminPanelOutputBoundary.prepareFoundUserView(userDtoModel);
     }
 
     @Override
@@ -218,7 +218,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public PersonalityDtoModel findPersonality(Long id) {
         Personality personality = adminPanelPersonalityDataAccess.findById(id);
         PersonalityDtoModel personalityDtoModel = PersonalityDtoModel.personalityMapper(personality);
-        return adminPanelOutputBoundary.prepareFindedPersonalityView(personalityDtoModel);
+        return adminPanelOutputBoundary.prepareFoundPersonalityView(personalityDtoModel);
     }
 
     @Override
@@ -297,7 +297,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public GroupDtoModel findGroup(Long id) {
         Group group = adminPanelGroupDataAccess.findById(id);
         GroupDtoModel groupDtoModel = GroupDtoModel.groupMapper(group);
-        return adminPanelOutputBoundary.prepareFindedGroupView(groupDtoModel);
+        return adminPanelOutputBoundary.prepareFoundGroupView(groupDtoModel);
     }
 
     @Override
@@ -369,14 +369,14 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public StudentDtoModel findStudent(Long id) {
         Student student = adminPanelStudentDataAccess.findById(id);
         StudentDtoModel studentDtoModel = StudentDtoModel.studentMapper(student);
-        return adminPanelOutputBoundary.prepareFindedStudentView(studentDtoModel);
+        return adminPanelOutputBoundary.prepareFoundStudentView(studentDtoModel);
     }
 
     @Override
     public StudentDtoModel findStudentByPersonality(Long id) {
         Student student = adminPanelStudentDataAccess.findByPersonalityId(id);
         StudentDtoModel studentDtoModel = StudentDtoModel.studentMapper(student);
-        return adminPanelOutputBoundary.prepareFindedStudentView(studentDtoModel);
+        return adminPanelOutputBoundary.prepareFoundStudentView(studentDtoModel);
     }
 
     @Override
@@ -463,14 +463,14 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public TeacherDtoModel findTeacher(Long id) {
         Teacher teacher = adminPanelTeacherDataAccess.findById(id);
         TeacherDtoModel teacherDtoModel = TeacherDtoModel.teacherMapper(teacher);
-        return adminPanelOutputBoundary.prepareFindedTeacherView(teacherDtoModel);
+        return adminPanelOutputBoundary.prepareFoundTeacherView(teacherDtoModel);
     }
 
     @Override
     public TeacherDtoModel findTeacherByPersonality(Long id) {
         Teacher teacher = adminPanelTeacherDataAccess.findByPersonalityId(id);
         TeacherDtoModel teacherDtoModel = TeacherDtoModel.teacherMapper(teacher);
-        return adminPanelOutputBoundary.prepareFindedTeacherView(teacherDtoModel);
+        return adminPanelOutputBoundary.prepareFoundTeacherView(teacherDtoModel);
     }
 
     @Override
@@ -542,7 +542,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public SubjectDtoModel findSubject(Long id) {
         Subject subject = adminPanelSubjectDataAccess.findById(id);
         SubjectDtoModel subjectDtoModel = SubjectDtoModel.subjectMapper(subject);
-        return adminPanelOutputBoundary.prepareFindedSubjectView(subjectDtoModel);
+        return adminPanelOutputBoundary.prepareFoundSubjectView(subjectDtoModel);
     }
 
     @Override
@@ -647,21 +647,21 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public CheckpointDtoModel findCheckpoint(Long id) {
         Checkpoint checkpoint = adminPanelCheckpointDataAccess.findById(id);
         CheckpointDtoModel checkpointDtoModel = CheckpointDtoModel.checkpointMapper(checkpoint);
-        return adminPanelOutputBoundary.prepareFindedCheckpointView(checkpointDtoModel);
+        return adminPanelOutputBoundary.prepareFoundCheckpointView(checkpointDtoModel);
     }
 
     @Override
     public CheckpointDtoModel findCheckpointByName(String name) {
         Checkpoint checkpoint = adminPanelCheckpointDataAccess.findByName(name);
         CheckpointDtoModel checkpointDtoModel = CheckpointDtoModel.checkpointMapper(checkpoint);
-        return adminPanelOutputBoundary.prepareFindedCheckpointView(checkpointDtoModel);
+        return adminPanelOutputBoundary.prepareFoundCheckpointView(checkpointDtoModel);
     }
 
     @Override
     public CheckpointDtoModel findCheckpointBySubjectId(Long subjectId) {
         Checkpoint checkpoint = adminPanelCheckpointDataAccess.findBySubjectId(subjectId);
         CheckpointDtoModel checkpointDtoModel = CheckpointDtoModel.checkpointMapper(checkpoint);
-        return adminPanelOutputBoundary.prepareFindedCheckpointView(checkpointDtoModel);
+        return adminPanelOutputBoundary.prepareFoundCheckpointView(checkpointDtoModel);
     }
 
     @Override
@@ -741,21 +741,21 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public LessonDtoModel findLesson(Long id) {
         Lesson lesson = adminPanelLessonDataAccess.findById(id);
         LessonDtoModel lessonDtoModel = LessonDtoModel.lessonMapper(lesson);
-        return adminPanelOutputBoundary.prepareFindedLessonView(lessonDtoModel);
+        return adminPanelOutputBoundary.prepareFoundLessonView(lessonDtoModel);
     }
 
     @Override
     public LessonDtoModel findLessonByName(String name) {
         Lesson lesson = adminPanelLessonDataAccess.findByName(name);
         LessonDtoModel lessonDtoModel = LessonDtoModel.lessonMapper(lesson);
-        return adminPanelOutputBoundary.prepareFindedLessonView(lessonDtoModel);
+        return adminPanelOutputBoundary.prepareFoundLessonView(lessonDtoModel);
     }
 
     @Override
     public LessonDtoModel findLessonBySubjectId(Long subjectId) {
         Lesson lesson = adminPanelLessonDataAccess.findBySubjectId(subjectId);
         LessonDtoModel lessonDtoModel = LessonDtoModel.lessonMapper(lesson);
-        return adminPanelOutputBoundary.prepareFindedLessonView(lessonDtoModel);    }
+        return adminPanelOutputBoundary.prepareFoundLessonView(lessonDtoModel);    }
 
     @Override
     public boolean editLesson(Long id, LessonEditRequestModel lessonEditRequestModel) {
@@ -841,7 +841,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public AttendanceDtoModel findAttendance(Long id) {
         Attendance attendance = adminPanelAttendanceDataAccess.findById(id);
         AttendanceDtoModel attendanceDtoModel = AttendanceDtoModel.attendanceMapper(attendance);
-        return adminPanelOutputBoundary.prepareFindedAttendanceView(attendanceDtoModel);
+        return adminPanelOutputBoundary.prepareFoundAttendanceView(attendanceDtoModel);
     }
 
     @Override
@@ -945,7 +945,7 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     public ScoreDtoModel findScore(Long id) {
         Score score = adminPanelScoreDataAccess.findById(id);
         ScoreDtoModel scoreDtoModel = ScoreDtoModel.scoreMapper(score);
-        return adminPanelOutputBoundary.prepareFindedScoreView(scoreDtoModel);
+        return adminPanelOutputBoundary.prepareFoundScoreView(scoreDtoModel);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.superngb.monitoring_system.DTOs.event.CheckpointDtoModel;
 import com.superngb.monitoring_system.DTOs.event.LessonDtoModel;
 import com.superngb.monitoring_system.DTOs.mark.AttendanceDtoModel;
 import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
+import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
 
@@ -13,16 +14,19 @@ import java.util.List;
 
 public interface TeacherOutputBoundary {
 
-    GroupDtoModel prepareFindedGroupView(GroupDtoModel groupDtoModel);
+    PersonalityDtoModel prepareFoundPersonalityView(PersonalityDtoModel personalityDtoModel);
+    List<PersonalityDtoModel> convertPersonalities(List<PersonalityDtoModel> personalityDtoModels);
+
+    GroupDtoModel prepareFoundGroupView(GroupDtoModel groupDtoModel);
     List<GroupDtoModel> convertGroups(List<GroupDtoModel> groupDtoModels);
 
-    StudentDtoModel prepareFindedStudentView(StudentDtoModel studentDtoModel);
+    StudentDtoModel prepareFoundStudentView(StudentDtoModel studentDtoModel);
     List<StudentDtoModel> convertStudents(List<StudentDtoModel> studentDtoModels);
 
-    TeacherDtoModel prepareFindedTeacherView(TeacherDtoModel teacherDtoModel);
+    TeacherDtoModel prepareFoundTeacherView(TeacherDtoModel teacherDtoModel);
     List<TeacherDtoModel> convertTeachers(List<TeacherDtoModel> teacherDtoModels);
 
-    SubjectDtoModel prepareFindedSubjectView(SubjectDtoModel subjectDtoModel);
+    SubjectDtoModel prepareFoundSubjectView(SubjectDtoModel subjectDtoModel);
     List<SubjectDtoModel> convertSubjects(List<SubjectDtoModel> subjectDtoModels);
 
     boolean prepareSuccessPostCheckpointView(CheckpointDtoModel checkpointDtoModel);
@@ -30,7 +34,7 @@ public interface TeacherOutputBoundary {
     boolean prepareSuccessEditCheckpointView(CheckpointDtoModel checkpointDtoModel);
     boolean prepareFailEditCheckpointView(CheckpointDtoModel checkpointDtoModel);
     CheckpointDtoModel prepareDeletedCheckpointView(CheckpointDtoModel checkpointDtoModel);
-    CheckpointDtoModel prepareFindedCheckpointView(CheckpointDtoModel checkpointDtoModel);
+    CheckpointDtoModel prepareFoundCheckpointView(CheckpointDtoModel checkpointDtoModel);
     List<CheckpointDtoModel> convertCheckpoints(List<CheckpointDtoModel> checkpointDtoModels);
 
     boolean prepareSuccessPostLessonView(LessonDtoModel lessonDtoModel);
@@ -38,7 +42,7 @@ public interface TeacherOutputBoundary {
     boolean prepareSuccessEditLessonView(LessonDtoModel lessonDtoModel);
     boolean prepareFailEditLessonView(LessonDtoModel lessonDtoModel);
     LessonDtoModel prepareDeletedLessonView(LessonDtoModel lessonDtoModel);
-    LessonDtoModel prepareFindedLessonView(LessonDtoModel lessonDtoModel);
+    LessonDtoModel prepareFoundLessonView(LessonDtoModel lessonDtoModel);
     List<LessonDtoModel> convertLessons(List<LessonDtoModel> lessonDtoModels);
 
     boolean prepareSuccessPostAttendanceView(AttendanceDtoModel attendanceDtoModel);
@@ -46,7 +50,7 @@ public interface TeacherOutputBoundary {
     boolean prepareSuccessEditAttendanceView(AttendanceDtoModel attendanceDtoModel);
     boolean prepareFailEditAttendanceView(AttendanceDtoModel attendanceDtoModel);
     AttendanceDtoModel prepareDeletedAttendanceView(AttendanceDtoModel attendanceDtoModel);
-    AttendanceDtoModel prepareFindedAttendanceView(AttendanceDtoModel attendanceDtoModel);
+    AttendanceDtoModel prepareFoundAttendanceView(AttendanceDtoModel attendanceDtoModel);
     List<AttendanceDtoModel> convertAttendances(List<AttendanceDtoModel> attendanceDtoModels);
 
     boolean prepareSuccessPostScoreView(ScoreDtoModel scoreDtoModel);
@@ -54,6 +58,6 @@ public interface TeacherOutputBoundary {
     boolean prepareSuccessEditScoreView(ScoreDtoModel scoreDtoModel);
     boolean prepareFailEditScoreView(ScoreDtoModel scoreDtoModel);
     ScoreDtoModel prepareDeletedScoreView(ScoreDtoModel scoreDtoModel);
-    ScoreDtoModel prepareFindedScoreView(ScoreDtoModel scoreDtoModel);
+    ScoreDtoModel prepareFoundScoreView(ScoreDtoModel scoreDtoModel);
     List<ScoreDtoModel> convertScores(List<ScoreDtoModel> scoreDtoModels);
 }

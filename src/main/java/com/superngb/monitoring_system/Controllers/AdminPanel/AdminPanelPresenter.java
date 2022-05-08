@@ -42,7 +42,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public UserDtoModel prepareFindedUserView(UserDtoModel userDtoModel) {
+    public UserDtoModel prepareFoundUserView(UserDtoModel userDtoModel) {
         return userDtoModel;
     }
 
@@ -79,7 +79,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public PersonalityDtoModel prepareFindedPersonalityView(PersonalityDtoModel personalityDtoModel) {
+    public PersonalityDtoModel prepareFoundPersonalityView(PersonalityDtoModel personalityDtoModel) {
         return personalityDtoModel;
     }
 
@@ -116,7 +116,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public GroupDtoModel prepareFindedGroupView(GroupDtoModel groupDtoModel) {
+    public GroupDtoModel prepareFoundGroupView(GroupDtoModel groupDtoModel) {
         return groupDtoModel;
     }
 
@@ -153,7 +153,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public StudentDtoModel prepareFindedStudentView(StudentDtoModel studentDtoModel) {
+    public StudentDtoModel prepareFoundStudentView(StudentDtoModel studentDtoModel) {
         return studentDtoModel;
     }
 
@@ -190,7 +190,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public TeacherDtoModel prepareFindedTeacherView(TeacherDtoModel teacherDtoModel) {
+    public TeacherDtoModel prepareFoundTeacherView(TeacherDtoModel teacherDtoModel) {
         return teacherDtoModel;
     }
 
@@ -227,7 +227,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public SubjectDtoModel prepareFindedSubjectView(SubjectDtoModel subjectDtoModel) {
+    public SubjectDtoModel prepareFoundSubjectView(SubjectDtoModel subjectDtoModel) {
         return subjectDtoModel;
     }
 
@@ -264,7 +264,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public CheckpointDtoModel prepareFindedCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+    public CheckpointDtoModel prepareFoundCheckpointView(CheckpointDtoModel checkpointDtoModel) {
         return checkpointDtoModel;
     }
 
@@ -301,7 +301,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public LessonDtoModel prepareFindedLessonView(LessonDtoModel lessonDtoModel) {
+    public LessonDtoModel prepareFoundLessonView(LessonDtoModel lessonDtoModel) {
         return lessonDtoModel;
     }
 
@@ -338,7 +338,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public AttendanceDtoModel prepareFindedAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+    public AttendanceDtoModel prepareFoundAttendanceView(AttendanceDtoModel attendanceDtoModel) {
         return attendanceDtoModel;
     }
 
@@ -375,7 +375,7 @@ public class AdminPanelPresenter implements AdminPanelOutputBoundary {
     }
 
     @Override
-    public ScoreDtoModel prepareFindedScoreView(ScoreDtoModel scoreDtoModel) {
+    public ScoreDtoModel prepareFoundScoreView(ScoreDtoModel scoreDtoModel) {
         return scoreDtoModel;
     }
 

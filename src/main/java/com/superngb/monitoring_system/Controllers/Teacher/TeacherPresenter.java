@@ -6,6 +6,7 @@ import com.superngb.monitoring_system.DTOs.event.CheckpointDtoModel;
 import com.superngb.monitoring_system.DTOs.event.LessonDtoModel;
 import com.superngb.monitoring_system.DTOs.mark.AttendanceDtoModel;
 import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
+import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
 import com.superngb.monitoring_system.UseCases.Teacher.TeacherOutputBoundary;
@@ -14,10 +15,22 @@ import java.util.List;
 
 public class TeacherPresenter implements TeacherOutputBoundary {
 
+    // Personality
+
+    @Override
+    public PersonalityDtoModel prepareFoundPersonalityView(PersonalityDtoModel personalityDtoModel) {
+        return personalityDtoModel;
+    }
+
+    @Override
+    public List<PersonalityDtoModel> convertPersonalities(List<PersonalityDtoModel> personalityDtoModels) {
+        return personalityDtoModels;
+    }
+
     // Group
 
     @Override
-    public GroupDtoModel prepareFindedGroupView(GroupDtoModel groupDtoModel) {
+    public GroupDtoModel prepareFoundGroupView(GroupDtoModel groupDtoModel) {
         return groupDtoModel;
     }
 
@@ -29,7 +42,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     // Students
 
     @Override
-    public StudentDtoModel prepareFindedStudentView(StudentDtoModel studentDtoModel) {
+    public StudentDtoModel prepareFoundStudentView(StudentDtoModel studentDtoModel) {
         return studentDtoModel;
     }
 
@@ -41,7 +54,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     // Teachers
 
     @Override
-    public TeacherDtoModel prepareFindedTeacherView(TeacherDtoModel teacherDtoModel) {
+    public TeacherDtoModel prepareFoundTeacherView(TeacherDtoModel teacherDtoModel) {
         return teacherDtoModel;
     }
 
@@ -53,7 +66,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     // Subjects
 
     @Override
-    public SubjectDtoModel prepareFindedSubjectView(SubjectDtoModel subjectDtoModel) {
+    public SubjectDtoModel prepareFoundSubjectView(SubjectDtoModel subjectDtoModel) {
         return subjectDtoModel;
     }
 
@@ -90,7 +103,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     }
 
     @Override
-    public CheckpointDtoModel prepareFindedCheckpointView(CheckpointDtoModel checkpointDtoModel) {
+    public CheckpointDtoModel prepareFoundCheckpointView(CheckpointDtoModel checkpointDtoModel) {
         return checkpointDtoModel;
     }
 
@@ -127,7 +140,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     }
 
     @Override
-    public LessonDtoModel prepareFindedLessonView(LessonDtoModel lessonDtoModel) {
+    public LessonDtoModel prepareFoundLessonView(LessonDtoModel lessonDtoModel) {
         return lessonDtoModel;
     }
 
@@ -164,7 +177,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     }
 
     @Override
-    public AttendanceDtoModel prepareFindedAttendanceView(AttendanceDtoModel attendanceDtoModel) {
+    public AttendanceDtoModel prepareFoundAttendanceView(AttendanceDtoModel attendanceDtoModel) {
         return attendanceDtoModel;
     }
 
@@ -201,7 +214,7 @@ public class TeacherPresenter implements TeacherOutputBoundary {
     }
 
     @Override
-    public ScoreDtoModel prepareFindedScoreView(ScoreDtoModel scoreDtoModel) {
+    public ScoreDtoModel prepareFoundScoreView(ScoreDtoModel scoreDtoModel) {
         return scoreDtoModel;
     }
 
