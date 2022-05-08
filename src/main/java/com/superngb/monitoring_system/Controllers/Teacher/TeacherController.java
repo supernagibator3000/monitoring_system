@@ -9,7 +9,7 @@ import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
 import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
-import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.*;
 import com.superngb.monitoring_system.UseCases.Teacher.TeacherInputBoundary;
 import org.springframework.web.bind.annotation.*;
 

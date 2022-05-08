@@ -9,7 +9,7 @@ import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
 import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
-import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

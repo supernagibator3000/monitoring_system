@@ -39,19 +39,19 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final AdminPanelUserDataAccess adminPanelUserDataAccess;
-    private final AdminPanelRoleDataAccess adminPanelRoleDataAccess;
-    private final AdminPanelPersonalityDataAccess adminPanelPersonalityDataAccess;
-    private final AdminPanelGroupDataAccess adminPanelGroupDataAccess;
-    private final AdminPanelStudentDataAccess adminPanelStudentDataAccess;
-    private final AdminPanelTeacherDataAccess adminPanelTeacherDataAccess;
-    private final AdminPanelSubjectDataAccess adminPanelSubjectDataAccess;
-    private final AdminPanelCheckpointDataAccess adminPanelCheckpointDataAccess;
-    private final AdminPanelLessonDataAccess adminPanelLessonDataAccess;
-    private final AdminPanelScoreDataAccess adminPanelScoreDataAccess;
-    private final AdminPanelAttendanceDataAccess adminPanelAttendanceDataAccess;
+    private AdminPanelUserDataAccess adminPanelUserDataAccess;
+    private AdminPanelRoleDataAccess adminPanelRoleDataAccess;
+    private AdminPanelPersonalityDataAccess adminPanelPersonalityDataAccess;
+    private AdminPanelGroupDataAccess adminPanelGroupDataAccess;
+    private AdminPanelStudentDataAccess adminPanelStudentDataAccess;
+    private AdminPanelTeacherDataAccess adminPanelTeacherDataAccess;
+    private AdminPanelSubjectDataAccess adminPanelSubjectDataAccess;
+    private AdminPanelCheckpointDataAccess adminPanelCheckpointDataAccess;
+    private AdminPanelLessonDataAccess adminPanelLessonDataAccess;
+    private AdminPanelScoreDataAccess adminPanelScoreDataAccess;
+    private AdminPanelAttendanceDataAccess adminPanelAttendanceDataAccess;
 
-    private final AdminPanelOutputBoundary adminPanelOutputBoundary;
+    private AdminPanelOutputBoundary adminPanelOutputBoundary;
 
     public AdminPanelInteractor(AdminPanelUserDataAccess adminPanelUserDataAccess,
                                 AdminPanelRoleDataAccess adminPanelRoleDataAccess,
@@ -452,6 +452,8 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
         return adminPanelOutputBoundary.prepareSuccessPostStudentView(StudentDtoModel.studentMapper(student));
     }
 
+    // Teachers
+
     @Override
     public List<TeacherDtoModel> getTeachers() {
         List<Teacher> teacherList = adminPanelTeacherDataAccess.getAll();
@@ -530,6 +532,8 @@ public class AdminPanelInteractor implements AdminPanelInputBoundary{
 
         return adminPanelOutputBoundary.prepareSuccessPostTeacherView(TeacherDtoModel.teacherMapper(teacher));
     }
+
+    // Subjects
 
     @Override
     public List<SubjectDtoModel> getSubjects() {
