@@ -11,7 +11,8 @@
         </div>
         <div class="dashboard_rules" sec:authorize="isAuthenticated()">
             <a class="navbar-brand" href="/profile">Личный кабинет</a>
-            <a class="navbar-brand" href="/teacher/subjects">Предметы</a>
+            <a class="navbar-brand" href="/teacher">Кабинет преподавателя</a>
+<!--            <a class="navbar-brand" href="/teacher/subjects">Предметы</a>-->
             <a class="navbar-brand" href="/logout">Выйти</a>
         </div>
         <div class="dashboard_rules" sec:authorize="hasRole('ADMIN')">

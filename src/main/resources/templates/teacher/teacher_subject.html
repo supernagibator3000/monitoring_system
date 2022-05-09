@@ -5,9 +5,9 @@
     <title>Teacher Subject Page</title>
 </head>
 <body>
-<h1>Вы находитесь в окне администратора: Предметы</h1>
+<h1>Вы находитесь в окне преподаватля: Предметы</h1>
 <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/teacher/subjects">Назад</a>
+    <a class="navbar-brand" href="/teacher">Назад</a>
     <a class="navbar-brand" href="/">Главная</a>
 </nav>
 <div id="app">
@@ -25,61 +25,61 @@
         </tr>
     </table>
 
-    <h4>Лекции</h4>
-    <form v-on:submit.prevent="addLessonToSubject">
-        <input type="text" v-model="lesson_name" name="lesson_name" placeholder="Название лекции"/>
-        <input type="submit" class="btn btn-primary addLessonToSubject" value="Добавить">
-    </form>
-    <table class="table table-bordered">
-        <thead>
-        <th scope="col">ID</th>
-        <th scope="col">Название лекции</th>
-        </thead>
-        <tbody>
-        <tr v-for="lesson in this.lessons">
-            <td>{{lesson.id}}</td>
-            <td>{{lesson.name}}</td>
-        </tr>
-        </tbody>
-    </table>
+<!--    <h4>Лекции</h4>-->
+<!--    <form v-on:submit.prevent="addLessonToSubject">-->
+<!--        <input type="text" v-model="lesson_name" name="lesson_name" placeholder="Название лекции"/>-->
+<!--        <input type="submit" class="btn btn-primary addLessonToSubject" value="Добавить">-->
+<!--    </form>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead>-->
+<!--        <th scope="col">ID</th>-->
+<!--        <th scope="col">Название лекции</th>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr v-for="lesson in this.lessons">-->
+<!--            <td>{{lesson.id}}</td>-->
+<!--            <td>{{lesson.name}}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
 
-    <h4>Оцениваемые работы</h4>
-    <form v-on:submit.prevent="addCheckpointToSubject">
-        <input type="text" v-model="checkpoint_name" name="checkpoint_name" placeholder="Название работы"/>
-        <input type="submit" class="btn btn-primary addCheckpointToSubject" value="Добавить">
-    </form>
-    <table class="table table-bordered">
-        <thead>
-        <th scope="col">ID</th>
-        <th scope="col">Название работы</th>
-        </thead>
-        <tbody>
-        <tr v-for="checkpoint in this.checkpoints">
-            <td>{{checkpoint.id}}</td>
-            <td>{{checkpoint.name}}</td>
-        </tr>
-        </tbody>
-    </table>
+<!--    <h4>Оцениваемые работы</h4>-->
+<!--    <form v-on:submit.prevent="addCheckpointToSubject">-->
+<!--        <input type="text" v-model="checkpoint_name" name="checkpoint_name" placeholder="Название работы"/>-->
+<!--        <input type="submit" class="btn btn-primary addCheckpointToSubject" value="Добавить">-->
+<!--    </form>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead>-->
+<!--        <th scope="col">ID</th>-->
+<!--        <th scope="col">Название работы</th>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr v-for="checkpoint in this.checkpoints">-->
+<!--            <td>{{checkpoint.id}}</td>-->
+<!--            <td>{{checkpoint.name}}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
 
-    <h4>Группы</h4>
-    <table class="table table-bordered">
-        <thead>
-        <th scope="col">ID</th>
-        <th scope="col">Название группы</th>
-        <th scope="col"></th>
-        </thead>
-        <tbody>
-        <tr v-for="group in this.groups">
-            <td>{{group.id}}</td>
-            <td>{{group.name}}</td>
-            <td>
-                <form v-on:submit.prevent="showMarks(group)">
-                    <input type="submit" class="btn btn-primary showMarks" value="Оценки">
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<!--    <h4>Группы</h4>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead>-->
+<!--        <th scope="col">ID</th>-->
+<!--        <th scope="col">Название группы</th>-->
+<!--        <th scope="col"></th>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr v-for="group in this.groups">-->
+<!--            <td>{{group.id}}</td>-->
+<!--            <td>{{group.name}}</td>-->
+<!--            <td>-->
+<!--                <form v-on:submit.prevent="showMarks(group)">-->
+<!--                    <input type="submit" class="btn btn-primary showMarks" value="Оценки">-->
+<!--                </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
 
 </div>
 <script>
