@@ -9,7 +9,15 @@ import com.superngb.monitoring_system.DTOs.mark.ScoreDtoModel;
 import com.superngb.monitoring_system.DTOs.person.PersonalityDtoModel;
 import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
-import com.superngb.monitoring_system.UseCases.Teacher.InputData.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.AttendanceEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.CheckpointEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.LessonEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.ScoreEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Filter.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.AttendancePostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.CheckpointPostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.LessonPostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.ScorePostRequestModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

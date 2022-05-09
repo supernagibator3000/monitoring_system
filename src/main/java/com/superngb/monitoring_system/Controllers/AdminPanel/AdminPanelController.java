@@ -11,7 +11,9 @@ import com.superngb.monitoring_system.DTOs.person.StudentDtoModel;
 import com.superngb.monitoring_system.DTOs.person.TeacherDtoModel;
 import com.superngb.monitoring_system.DTOs.person.UserDtoModel;
 import com.superngb.monitoring_system.UseCases.AdminPanel.AdminPanelInputBoundary;
-import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.*;
+import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.Edit.*;
+import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.Filter.*;
+import com.superngb.monitoring_system.UseCases.AdminPanel.InputData.Post.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

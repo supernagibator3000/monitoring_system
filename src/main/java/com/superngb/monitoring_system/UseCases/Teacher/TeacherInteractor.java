@@ -20,8 +20,16 @@ import com.superngb.monitoring_system.Entities.person.Student;
 import com.superngb.monitoring_system.Entities.person.Teacher;
 import com.superngb.monitoring_system.Enums.AttendanceEnum;
 import com.superngb.monitoring_system.Enums.ScoreEnum;
-import com.superngb.monitoring_system.UseCases.Teacher.InputData.*;
 import com.superngb.monitoring_system.UseCases.Teacher.DataAccess.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.AttendanceEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.CheckpointEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.LessonEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Edit.ScoreEditRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Filter.*;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.AttendancePostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.CheckpointPostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.LessonPostRequestModel;
+import com.superngb.monitoring_system.UseCases.Teacher.InputData.Post.ScorePostRequestModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -282,7 +290,7 @@ public class TeacherInteractor implements TeacherInputBoundary{
         List<Group> groupList = subjectById.getGroups();
         for (Group group: groupList){
             for (Student student: group.getStudents()){
-                createScore(new ScorePostRequestModel(student.getId(), "", checkpoint.getId()));
+                createScore(new ScorePostRequestModel(student.getId(), "пусто", checkpoint.getId()));
             }
         }
 
