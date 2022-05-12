@@ -5,12 +5,12 @@ import com.superngb.monitoring_system.UseCases.UserAuthorization.UserAuthorizati
 
 public class UserAuthorizationPresenter implements UserAuthorizationOutputBoundary {
     @Override
-    public RegistrationResponseModel prepareSuccessView() {
+    public RegistrationResponseModel prepareSuccessRegistrationView() {
         return new RegistrationResponseModel(false, false);
     }
 
     @Override
-    public RegistrationResponseModel prepareFailView(RegistrationResponseModel registrationResponseModel) {
+    public RegistrationResponseModel prepareFailRegistrationView(RegistrationResponseModel registrationResponseModel) {
         return registrationResponseModel;
     }
 }

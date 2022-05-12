@@ -24,17 +24,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     @Autowired
     AdminPanelInteractor adminPanelInteractor;
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("")
-                .allowedOrigins("http://localhost:8081")
-                .allowedOrigins("http://localhost:8080")
+                .allowedOrigins("http://localhost:8081", "http://localhost:8080")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH")
                 .allowCredentials(true);
     }
@@ -45,11 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/profile/**", "/teacher/**").hasRole("USER")
-                //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**", "/css/**", "/login").permitAll()
+                .antMatchers("/**").permitAll()
+//                //Доступ только для пользователей с ролью Администратор
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/profile/**", "/teacher/**").hasRole("USER")
+//                //Доступ разрешен всем пользователей
+//                .antMatchers("/", "/resources/**", "/css/**", "/login**").permitAll()
                 //Все остальные страницы требуют аутентификации
 /*                .anyRequest().authenticated()
                 .and()
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userAuthorizationInteractor).passwordEncoder(bCryptPasswordEncoder());
-        auth.userDetailsService(adminPanelInteractor).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userAuthorizationInteractor).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(adminPanelInteractor).passwordEncoder(bCryptPasswordEncoder);
     }
 }
