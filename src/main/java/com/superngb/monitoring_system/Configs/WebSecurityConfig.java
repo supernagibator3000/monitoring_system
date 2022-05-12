@@ -10,10 +10,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer{
 
     @Autowired
     UserAuthorizationInteractor userAuthorizationInteractor;
@@ -27,6 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("")
+                .allowedOrigins("http://localhost:8081")
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH")
+                .allowCredentials(true);
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
@@ -36,9 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/profile/**", "/teacher/**").hasRole("USER")
                 //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**", "/css/**").permitAll()
+                .antMatchers("/", "/resources/**", "/css/**", "/login").permitAll()
                 //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
+/*                .anyRequest().authenticated()
                 .and()
                 //Настройка для входа в систему
                 .formLogin()
@@ -49,7 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")*/;
+
     }
 
     @Autowired
