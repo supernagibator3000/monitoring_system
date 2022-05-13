@@ -34,10 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -70,31 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
-/*        httpSecurity
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/profile/**", "/teacher/**").hasRole("USER")
-//                //Доступ разрешен всем пользователей
-//                .antMatchers("/", "/resources/**", "/css/**", "/login**").permitAll()
-                //Все остальные страницы требуют аутентификации
-*//*                .anyRequest().authenticated()
-                .and()
-                //Настройка для входа в систему
-                .formLogin()
-                .loginPage("/login")
-                //Перенарпавление на главную страницу после успешного входа
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/")*//*;*/
-
     }
 
     @Bean
